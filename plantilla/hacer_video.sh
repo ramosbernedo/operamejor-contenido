@@ -18,7 +18,7 @@ else
   VENV=${OM_VENV:-$HOME/om-venv}
   if [ ! -x "$VENV/bin/python" ] || ! "$VENV/bin/python" -c "import f5_tts" 2>/dev/null; then
     command -v uv >/dev/null || pip install -q uv
-    uv venv -q -p 3.11 "$VENV" && VIRTUAL_ENV=$VENV uv pip install -q f5-tts
+    uv venv -q -p 3.11 "$VENV" && VIRTUAL_ENV=$VENV uv pip install -q f5-tts faster-whisper
   fi
   HF_HUB_DISABLE_XET=1 "$VENV/bin/python" "$P/tts_clon.py" "$VOZ" > /dev/null 2>&1
 fi

@@ -3,7 +3,10 @@ from scipy.signal import butter, sosfilt, resample_poly
 SR = 44100; T = json.load(open("timing.json")); CS, SD = T["CS"], T["SD"]
 starts = np.cumsum([0] + SD[:-1]); total = sum(SD); N = int(total*SR) + SR
 voice = np.zeros(N); fx = np.zeros(N); rng = np.random.default_rng(2)
-def add(b, x, t, g=1.): i = int(t*SR); x = x[:N-i]; b[i:i+len(x)] += g*x
+def add(b, x, t, g=1.):
+    i = int(t*SR)
+    if i < 0 or i >= N: return
+    x = x[:N-i]; b[i:i+len(x)] += g*x
 def lp(x, f): return sosfilt(butter(2, f, "low", fs=SR, output="sos"), x)
 def hp(x, f): return sosfilt(butter(2, f, "high", fs=SR, output="sos"), x)
 def bp(x, a, b): return sosfilt(butter(2, [a, b], "band", fs=SR, output="sos"), x)
