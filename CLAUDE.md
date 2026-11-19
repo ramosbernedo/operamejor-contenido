@@ -7,7 +7,7 @@ El usuario es nuevo en programación: respóndele breve y sin tecnicismos.
 ## Temas: el panel es la lista
 Los temas viven en la base de datos del panel **https://claude.ai/artifact/PmEKYNt6r4M2ig3rkhS2GE** (código en `panel/aprobar.html`), colección `temas`. Léela y escríbela con la herramienta `ArtifactData` (carga su esquema con ToolSearch "select:ArtifactData"). Siempre pasa `if_version` al modificar un tema existente.
 
-Cada tema (doc id = id corto con guiones): `tema`, `angulo`, `formato` (error | formula | mito), `fuente`, `estado`, `creado` (fecha ISO), y al producirlo `carpeta`.
+Cada tema (doc id = id corto con guiones): `tema`, `angulo`, `formato` (error | formula | mito), `fuente`, `estado`, `creado` (fecha ISO), `potencial` (1–5), `porque`; al producirlo `carpeta` y `cta`; al publicarlo `vistas`, `comentarios`, `fecha_publicacion`.
 Estados: idea → aprobado (o rechazado, lo decide el usuario deslizando en el panel) → producido → revisado → publicado.
 
 ## Stock de seguridad de temas

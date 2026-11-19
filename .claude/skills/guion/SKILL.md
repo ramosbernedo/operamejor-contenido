@@ -33,6 +33,7 @@ Ejemplos completos en `plantilla/ejemplos/`.
 - `cierre` — `pregunta` opcional (por defecto "¿Qué tema sigue?").
 
 ## Reglas
+- La primera frase es el gancho: debe parar el scroll en 2 segundos (pregunta directa, pérdida concreta o dato sorprendente).
 - Los números deben cuadrar: lo que dice la voz = lo que muestran los datos = la cuenta correcta.
 - Ejemplos de bodega peruana (gaseosas, arroz, aceite, Yape, proveedor que tarda). Nada de inglés innecesario.
 
