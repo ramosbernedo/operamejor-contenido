@@ -1,0 +1,16 @@
+[
+ {"label":"// 01 · el mito","title":["MÁS CAJAS","MÁS *AHORRO*"],"n":1,"tipo":"mito",
+  "datos":{"mito":"Si compro 10 cajas en oferta, ahorro.","realidad":"Si no las vendes rápido, pierdes plata."},
+  "chunks":["Lleva diez cajas, te sale más *barato*.","*Falso*.","Si no las vendes, *pierdes*."]},
+ {"label":"// 02 · la cuenta","title":["HAGAMOS LA","*CUENTA*"],"n":2,"tipo":"formula",
+  "datos":{"titulo":"LA OFERTA","subtitulo":"= ahorro − lo que se vence","terminos":[["50","ahorro"],"−",["90","2 cajas vencidas"]],"resultado":["−40","pierdes"]},
+  "chunks":["Con la oferta ahorras *cincuenta* soles.","Pero se te vencen dos cajas: *noventa* soles.","Pierdes *cuarenta*."]},
+ {"label":"// 03 · y además","title":["PLATA","*PARADA*"],"n":3,"tipo":"lista",
+  "datos":{"inicio":10,"fin":3,"icono":"caja","etiqueta":"CAJAS · 3 meses después"},"sello":{"texto":"3 MESES"},
+  "chunks":["Y mientras, tu plata está *parada*","en cajas que no se *venden*."]},
+ {"label":"// 04 · la solución","title":["COMPRA","*LO JUSTO*"],"n":4,"tipo":"texto",
+  "datos":{"grande":"Compra lo que vendes en 2 semanas.","chico":"la oferta solo sirve si vendes rápido"},
+  "chunks":["La oferta sirve","solo si vendes *rápido*."]},
+ {"label":"// opera mejor","title":["OPERA","*MEJOR*"],"tipo":"cierre","datos":{"pregunta":"Link en la bio"},
+  "chunks":["Esto fue *Opera Mejor*.","¿Quieres ayuda? *Escríbenos*."]}
+]

@@ -1,0 +1,16 @@
+[
+ {"label":"// 01 · el problema","title":["NO HAY","*GASEOSA*"],"n":1,"tipo":"lista",
+  "datos":{"inicio":6,"fin":0,"icono":"botella","etiqueta":"GASEOSAS · stock"},"sello":{"texto":"SE FUE"},
+  "chunks":["Tu cliente pide una *gaseosa*.","No hay.","Se va a la bodega de *enfrente*."]},
+ {"label":"// 02 · lo peor","title":["Y NO","*VUELVE*"],"n":2,"tipo":"texto",
+  "datos":{"grande":"Ahora compra todo allá.","chico":"pan · arroz · aceite · gaseosa"},"sello":{"texto":"CLIENTE PERDIDO","tam":70},
+  "chunks":["Y no solo compra la gaseosa.","Ahora compra *todo* allá."]},
+ {"label":"// 03 · la cuenta","title":["CUÁNTO","*PIERDES*"],"n":3,"tipo":"formula",
+  "datos":{"titulo":"UN CLIENTE PERDIDO","subtitulo":"= lo que gastaba, todo el año","terminos":[["8","soles/día"],"×",["26","días"],"×",["12","meses"]],"resultado":["2496","soles/año"]},
+  "chunks":["Hagamos la *cuenta*.","Ocho soles al día, veintiséis días, doce *meses*.","Son dos mil cuatrocientos noventa y seis *soles*."]},
+ {"label":"// 04 · la solución","title":["NUNCA","*FALTA*"],"n":4,"tipo":"texto",
+  "datos":{"grande":"Lo que más vendes nunca debe faltar.","chico":"usa stock de seguridad"},"sello":{"texto":"CLAVE"},
+  "chunks":["Lo que más vendes","nunca debe *faltar*."]},
+ {"label":"// opera mejor","title":["OPERA","*MEJOR*"],"tipo":"cierre","datos":{"pregunta":"¿Te pasó?"},
+  "chunks":["Esto fue *Opera Mejor*.","¿Te pasó? *Coméntalo*."]}
+]

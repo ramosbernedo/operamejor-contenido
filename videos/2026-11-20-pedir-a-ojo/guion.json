@@ -1,0 +1,16 @@
+[
+ {"label":"// 01 · el error","title":["LO DE","*SIEMPRE*"],"n":1,"tipo":"texto",
+  "datos":{"grande":"“Tráeme lo de siempre”","chico":"// sin mirar tus ventas"},"sello":{"texto":"ERROR"},
+  "chunks":["¿Le pides al proveedor *lo de siempre*?","Ese es el *error*."]},
+ {"label":"// 02 · la realidad","title":["TUS VENTAS","*CAMBIAN*"],"n":2,"tipo":"barras",
+  "datos":{"etiquetas":["sem 1","sem 2","sem 3","sem 4"],"valores":[40,25,55,30],"destacar":2,"promedio":40,"nota":"lo de siempre: 40 kg"},
+  "chunks":["Pides cuarenta kilos de arroz cada semana.","Pero una semana vendes *veinticinco*,","y otra, *cincuenta y cinco*."]},
+ {"label":"// 03 · el resultado","title":["SOBRA O","*FALTA*"],"n":3,"tipo":"texto",
+  "datos":{"grande":"Unas semanas sobra. Otras falta.","chico":"plata parada o ventas perdidas"},"sello":{"texto":"PIERDES"},
+  "chunks":["Unas semanas te *sobra*,","otras te *falta*."]},
+ {"label":"// 04 · la solución","title":["PIDE CON","*DATOS*"],"n":4,"tipo":"formula",
+  "datos":{"titulo":"TU PEDIDO","subtitulo":"= lo que vendiste + colchón − lo que queda","terminos":[["55","vendiste"],"+",["10","colchón"],"−",["15","te queda"]],"resultado":["50","pide"]},
+  "chunks":["Mira cuánto *vendiste*.","Cincuenta y cinco, más diez de colchón, menos quince que te *quedan*.","Pide *cincuenta*."]},
+ {"label":"// opera mejor","title":["OPERA","*MEJOR*"],"tipo":"cierre","datos":{"pregunta":"OperaMejor.pe"},
+  "chunks":["Esto fue *Opera Mejor*.","Calcula tu stock gratis en *OperaMejor.pe*."]}
+]
