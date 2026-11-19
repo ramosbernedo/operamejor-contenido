@@ -1,0 +1,1 @@
+Cronograma editable, para visualizar fechas críticas y entregables. Registro de pendientes por persona, para tener trazabilidad real.
