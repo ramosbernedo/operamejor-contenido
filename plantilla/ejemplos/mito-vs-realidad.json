@@ -1,0 +1,10 @@
+[
+ {"label":"// 01 · el mito","title":["MÁS STOCK","ES *MEJOR*"],"n":1,"tipo":"mito",
+  "datos":{"mito":"Tener la bodega llena te protege de todo.","realidad":"El exceso inmoviliza tu dinero y se vence."},
+  "chunks":["Muchos creen que más stock es *más seguro*.","*Falso*.","El exceso es *plata parada*."]},
+ {"label":"// 02 · la clave","title":["PIDE LO","*JUSTO*"],"n":2,"tipo":"texto",
+  "datos":{"grande":"Calcula, no adivines.","chico":"demanda × tiempo de entrega + colchón"},"sello":{"texto":"CALCULA"},
+  "chunks":["La clave es *calcular*,","no *adivinar*."]},
+ {"label":"// opera mejor","title":["OPERA","*MEJOR*"],"tipo":"cierre",
+  "chunks":["Esto fue *Opera Mejor*.","¿Te pasó? *Coméntalo*."]}
+]

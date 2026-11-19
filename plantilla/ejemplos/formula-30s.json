@@ -1,0 +1,21 @@
+[
+ {"label":"// 01 · el problema","title":["SIN STOCK","EL *SÁBADO*"],"n":1,"tipo":"lista",
+  "datos":{"inicio":18,"fin":0,"icono":"botella","etiqueta":"GASEOSAS · stock"},
+  "sello":{"texto":"VENTA PERDIDA"},
+  "chunks":["¿Tu bodega se queda sin *gaseosas*","justo el *sábado*?","Estás perdiendo *ventas*."]},
+ {"label":"// 02 · la demanda","title":["LA DEMANDA","*VARÍA*"],"n":2,"tipo":"barras",
+  "datos":{"etiquetas":["L","M","M","J","V","S"],"valores":[18,21,19,20,22,32],"promedio":20,"nota":"promedio 20/día"},
+  "sello":{"texto":"+60%","giro":6,"tam":90},
+  "chunks":["Vendes *veinte* al día en promedio.","Pero el sábado, *treinta y dos*."]},
+ {"label":"// 03 · el error","title":["PIDES","*TARDE*"],"n":3,"tipo":"curva",
+  "datos":{"inicio":60,"dias_hasta_cero":2.3,"dias":3,"etiqueta":"60 · PEDIDO","llegada":"3 días"},
+  "sello":{"texto":"QUIEBRE","tam":90},
+  "chunks":["Pides cuando te quedan *sesenta*.","El proveedor tarda *tres días*.","Y te quedas en *cero*."]},
+ {"label":"// 04 · la solución","title":["STOCK DE","*SEGURIDAD*"],"n":4,"tipo":"formula",
+  "datos":{"titulo":"STOCK DE SEGURIDAD","subtitulo":"= colchón para los días malos","terminos":[["20","venta/día"],"×",["3","días"],"+",["15","colchón"]],"resultado":["75","pide aquí"]},
+  "sello":{"texto":"PUNTO DE PEDIDO","x":360,"giro":-6,"tam":70},
+  "chunks":["La solución: stock de *seguridad*.","Veinte por tres, más quince de *colchón*.","Pide cuando te queden *setenta y cinco*."]},
+ {"label":"// opera mejor","title":["OPERA","*MEJOR*"],"n":5,"tipo":"cierre",
+  "sello":{"texto":"SÍGUENOS","x":300,"giro":-5,"tam":70},
+  "chunks":["Esto fue *Opera Mejor*.","¿Qué tema sigue? *Coméntalo*."]}
+]

@@ -26,21 +26,10 @@ for i, row in enumerate(CS):
         a, sr = sf.read(f"c{i}_{j}.wav"); a = resample_poly(a, SR, sr)
         add(voice, a, starts[i] + st)
 sf.write("voice.wav", voice[:int(total*SR)], SR)
-# sfx
-for i in range(5):
-    s0 = starts[i]
-    if i: add(fx, whoosh(), s0 - .2, .45)
-    add(fx, pop(700), s0 + .15, .35); add(fx, pop(1000), s0 + .3, .35); add(fx, tick(), s0 + .35, .6)
-c = CS
-for k in range(18): add(fx, pop(1200 - k*25), starts[0] + c[0][0] + (c[0][2]-c[0][0])*k/18, .18)
-add(fx, thud(), starts[0] + c[0][2] + .2, .9); add(fx, error(), starts[0] + c[0][2] + .25, .5)
-for k in range(5): add(fx, pop(600 + k*80), starts[1] + c[1][0] + .1 + k*.18, .3)
-add(fx, swipe_up(), starts[1] + c[1][1] + .85, .8); add(fx, thud(), starts[1] + c[1][1] + 1.1, .8)
-add(fx, pop(900), starts[2] + c[2][0] + .3, .35); add(fx, truck(), starts[2] + c[2][1] + .2, .5)
-add(fx, error(), starts[2] + c[2][2] + .1, .45); add(fx, thud(), starts[2] + c[2][2] + .3, .9)
-for dt in (.05, .45, 1.0): add(fx, pop(1000), starts[3] + c[3][1] + dt, .4)
-add(fx, chime(), starts[3] + c[3][2] + .9, .5); add(fx, thud(), starts[3] + c[3][2] + 1.4, .8)
-add(fx, pop(1100), starts[4] + c[4][1], .4); add(fx, chime(), starts[4] + c[4][1] + .8, .45)
+# sfx (los eventos vienen de render.py -> timing.json)
+SFX = {"whoosh": lambda *_: whoosh(), "pop": lambda f=900: pop(f), "thud": lambda *_: thud(), "tick": lambda *_: tick(),
+       "error": lambda *_: error(), "truck": lambda *_: truck(), "chime": lambda *_: chime(), "swipe": lambda *_: swipe_up()}
+for e in T["EV"]: add(fx, SFX[e[1]](*e[3:]), max(0, e[0]), e[2])
 # music: soft lo-fi loop (98 bpm)
 bpm = 98; beat = 60/bpm; mus = np.zeros(N)
 chords = [[261.6, 329.6, 392.0, 493.9], [220.0, 261.6, 329.6, 392.0], [174.6, 220.0, 261.6, 329.6], [196.0, 246.9, 293.7, 349.2]]

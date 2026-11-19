@@ -134,6 +134,12 @@ def draw_caption(c, i, t):
             x += ww
         y += 76
 
+def title_parts(line):
+    # acepta "EL *SÁBADO*" (lo de *asteriscos* va en rojo) o el formato viejo ["EL ",0,"SÁBADO",1]
+    if isinstance(line, str):
+        a, _, b = line.partition("*"); return [(a, INK), (b.replace("*", ""), RED)]
+    return [(line[0], INK)] + ([(line[2], RED)] if len(line) > 2 else [])
+
 def header(c, i, t):
     s = S[i]
     al = eo((t - 0.05) / 0.3)
@@ -142,14 +148,14 @@ def header(c, i, t):
     for li, line in enumerate(s["title"]):
         t0 = 0.12 + li * 0.15; p = (t - t0) / 0.35
         if p <= 0: continue
-        parts = [(line[0], INK)] + ([(line[2], RED)] if len(line) > 2 else [])
         x = 70; yo = 40 * (1 - eo(p))
-        for ptxt, col in parts:
+        for ptxt, col in title_parts(line):
             if not ptxt: continue
             spr = txt(ptxt, ANTON(132), col)
             paste(c, spr, x - 12, y + yo + 12, al=clamp(p * 2), anchor="l"); x += spr.width - 24
-        if li == 0: badge(c, s["n"], 980, y + 10, 0.3, t)
+        if li == 0 and s.get("n"): badge(c, s["n"], 980, y + 10, 0.3, t)
         y += 150
+
 
 # ---------- mascot (original: cardboard box) ----------
 VENV = None
@@ -196,115 +202,178 @@ def mascot(c, t, gt, cx=850, cy=1700, point=True, wave=False):
     if mh > 18: d.ellipse([cx - 18, T + 160 + mh - 16, cx + 18, T + 160 + mh - 2], fill=(220, 90, 90))
     c.alpha_composite(lay)
 
-# ---------- scene contents ----------
-CX, CY0 = 70, 820  # card left/top
-def bottles(d, x, y, colors, n_visible):
-    k = 0
-    for row in range(3):
-        for col in range(6):
-            if k >= n_visible: return
-            bx, by = x + col * 120, y + row * 150
-            colr = colors[k % len(colors)]
-            d.rounded_rectangle([bx, by + 30, bx + 70, by + 130], 18, fill=colr)
-            d.rectangle([bx + 24, by + 5, bx + 46, by + 32], fill=colr)
+# ---------- tipos de escena (se eligen en el guion con "tipo") ----------
+CX, CY0 = 70, 820
+GREEN = (46, 150, 80); BLUE = (40, 110, 220)
+def dat(i): return S[i].get("datos", {})
+def last(i): return len(CS[i]) - 1
+def cend(i, j): return CS[i][j] + CD[i][j]
+def base_card(c, t, h=620):
+    p = eo(t / 0.4); paste(c, card(940, h), W / 2, CY0 + h / 2 + 60 * (1 - p), al=p); return p
+def wrap(s, f, maxw):
+    out = [""]
+    for w in s.split():
+        tst = (out[-1] + " " + w).strip()
+        if f.getlength(tst) > maxw and out[-1]: out.append(w)
+        else: out[-1] = tst
+    return out
+
+def icons(d, x, y, n, kind):
+    cols = [(226, 58, 46), (60, 150, 80), (240, 150, 40)]
+    for k in range(n):
+        bx, by = x + (k % 6) * 120, y + (k // 6) * 150; col = cols[k % 3]
+        if kind == "caja":
+            d.rounded_rectangle([bx, by + 40, bx + 90, by + 130], 10, fill=(214, 168, 112))
+            d.rectangle([bx + 35, by + 40, bx + 55, by + 130], fill=(232, 200, 150))
+        else:
+            d.rounded_rectangle([bx, by + 30, bx + 70, by + 130], 18, fill=col)
+            d.rectangle([bx + 24, by + 5, bx + 46, by + 32], fill=col)
             d.rectangle([bx + 20, by, bx + 50, by + 10], fill=INK)
             d.rectangle([bx, by + 62, bx + 70, by + 92], fill=WHITE)
-            k += 1
 
-def s0(c, t, i=0):
-    cs = CS[i]; p = eo(t / 0.4)
-    paste(c, card(940, 620), W / 2, CY0 + 310 + 60 * (1 - p), al=p)
-    if p > 0.5:
-        d = ImageDraw.Draw(c); y0 = CY0 + 40 + 60 * (1 - p)
-        for r in range(3): d.rectangle([110, y0 + r * 150 + 132, 970, y0 + r * 150 + 142], fill=(200, 190, 178))
-        gone = int(clamp((t - cs[0]) / (cs[2] - cs[0])) * 18)
-        bottles(d, 150, y0, [(226, 58, 46), (60, 150, 80), (240, 150, 40)], 18 - gone)
-        d.text((110, y0 + 470), "GASEOSAS · stock", font=MONO(28), fill=GREY)
-        n = 18 - gone; f = ANTON(70)
-        d.text((830, y0 + 455), f"{n}", font=f, fill=RED if n < 6 else INK)
-    stamp(c, "VENTA PERDIDA", 330, 1580, cs[2] + 0.2, t)
-
-def s1(c, t, i=1):
-    cs = CS[i]; p = eo(t / 0.4)
-    paste(c, card(940, 620), W / 2, CY0 + 310 + 60 * (1 - p), al=p)
+# lista: unos productos que se van acabando. datos: inicio, fin, icono (botella|caja), etiqueta
+def lista_t(i): return CS[i][0], (CS[i][last(i)] if last(i) else cend(i, 0))
+def sc_lista(c, t, i):
+    D_ = dat(i); ini, fin = D_.get("inicio", 18), D_.get("fin", 0)
+    p = base_card(c, t)
     if p < 0.5: return
-    d = ImageDraw.Draw(c); base = CY0 + 540; sc = 11
-    days = ["L", "M", "M", "J", "V", "S"]; vals = [18, 21, 19, 20, 22, 32]
-    for k in range(6):
-        t0 = cs[0] + 0.1 + k * 0.18 if k < 5 else cs[1] + 0.9
-        g = bo((t - t0) / 0.4) if t > t0 else 0
-        x = 140 + k * 140; h = vals[k] * sc * g
-        col = RED if k == 5 else (60, 58, 54)
-        if h > 0: d.rounded_rectangle([x, base - h, x + 90, base], 12, fill=col)
-        d.text((x + 34, base + 14), days[k], font=MONO(30, "Bold"), fill=GREY)
-        if g > 0.8: d.text((x + 45 - ANTON(44).getlength(str(vals[k])) / 2, base - h - 60), str(vals[k]), font=ANTON(44), fill=col)
-    ta = cs[0] + 0.3
-    if t > ta:
-        q = eo((t - ta) / 0.6); y = base - 20 * sc
-        for xx in range(110, int(110 + 860 * q), 30): d.line([(xx, y), (xx + 16, y)], fill=(40, 110, 220), width=5)
-        d.text((112, CY0 + 50), "- - - promedio 20/día", font=MONO(28, "Bold"), fill=(40, 110, 220))
-    stamp(c, "+60%", 330, 1580, cs[1] + 1.1, t, rot=6, size=90)
+    d = ImageDraw.Draw(c); y0 = CY0 + 40 + 60 * (1 - p); t0, t1 = lista_t(i)
+    for r in range(3): d.rectangle([110, y0 + r * 150 + 132, 970, y0 + r * 150 + 142], fill=(200, 190, 178))
+    n = round(ini + (fin - ini) * clamp((t - t0) / max(.1, t1 - t0)))
+    icons(d, 150, y0, round(18 * n / ini) if ini else 0, D_.get("icono", "botella"))
+    d.text((110, y0 + 470), D_.get("etiqueta", "stock"), font=MONO(28), fill=GREY)
+    d.text((830, y0 + 455), str(n), font=ANTON(70), fill=RED if n <= ini * .3 else INK)
+def ev_lista(i):
+    t0, t1 = lista_t(i); e = [(t0 + (t1 - t0) * k / 14, "pop", .18, 1200 - k * 30) for k in range(14)]
+    if dat(i).get("fin", 0) < dat(i).get("inicio", 18): e += [(t1 + .2, "thud", .9), (t1 + .25, "error", .5)]
+    return e
 
-def s2(c, t, i=2):
-    cs = CS[i]; p = eo(t / 0.4)
-    paste(c, card(940, 620), W / 2, CY0 + 310 + 60 * (1 - p), al=p)
-    if p < 0.5: return
-    d = ImageDraw.Draw(c)
-    X0, X1, Y0, Y1 = 160, 940, CY0 + 70, CY0 + 520  # Y0 top (80u), Y1 bottom (0)
-    ys = lambda v: Y1 - (Y1 - Y0) * v / 80; xs = lambda day: X0 + (X1 - X0) * day / 3.2
+# barras: comparar cantidades. datos: etiquetas, valores, destacar (índice), promedio, nota
+def barras_cfg(i):
+    D_ = dat(i); v = D_["valores"]; h = D_.get("destacar", v.index(max(v)))
+    th = CS[i][last(i)] + .9 if last(i) else CS[i][0] + .3 + len(v) * .18
+    return D_, v, h, th
+def sc_barras(c, t, i):
+    D_, vals, hi, th = barras_cfg(i)
+    if base_card(c, t) < 0.5: return
+    d = ImageDraw.Draw(c); base = CY0 + 540; n = len(vals); slot = 860 / n; bw = min(90, slot * .65)
+    sc = 400 / max(vals + [D_.get("promedio", 0)]); labs = D_.get("etiquetas", [""] * n)
+    for k in range(n):
+        t0 = th if k == hi else CS[i][0] + .1 + k * .18
+        g = bo((t - t0) / .4) if t > t0 else 0
+        x = 110 + k * slot + (slot - bw) / 2; h = vals[k] * sc * g; col = RED if k == hi else (60, 58, 54)
+        if h > 0: d.rounded_rectangle([x, base - h, x + bw, base], 12, fill=col)
+        f = MONO(28, "Bold"); d.text((x + bw / 2 - f.getlength(str(labs[k])) / 2, base + 14), str(labs[k]), font=f, fill=GREY)
+        if g > .8: d.text((x + bw / 2 - ANTON(44).getlength(str(vals[k])) / 2, base - h - 60), str(vals[k]), font=ANTON(44), fill=col)
+    if "promedio" in D_ and t > CS[i][0] + .3:
+        q = eo((t - CS[i][0] - .3) / .6); y = base - D_["promedio"] * sc
+        for xx in range(110, int(110 + 860 * q), 30): d.line([(xx, y), (xx + 16, y)], fill=BLUE, width=5)
+        d.text((112, CY0 + 50), "- - - " + D_.get("nota", f"promedio {D_['promedio']}"), font=MONO(28, "Bold"), fill=BLUE)
+def ev_barras(i):
+    D_, v, hi, th = barras_cfg(i)
+    return [(CS[i][0] + .1 + k * .18, "pop", .3, 600 + k * 80) for k in range(len(v)) if k != hi] + [(th - .25, "swipe", .8), (th, "thud", .8)]
+
+# curva: el stock baja hasta cero. datos: inicio, dias_hasta_cero, dias, etiqueta, llegada
+def curva_cfg(i):
+    D_ = dat(i); a = CS[i][1] if last(i) else CS[i][0] + .5; b = CS[i][last(i)] + .4
+    return D_, a, max(b, a + 1.5)
+def sc_curva(c, t, i):
+    D_, ta, tb = curva_cfg(i)
+    if base_card(c, t) < 0.5: return
+    ini, cero, tot = D_.get("inicio", 60), D_.get("dias_hasta_cero", 2.3), D_.get("dias", 3)
+    d = ImageDraw.Draw(c); X0, X1, Y0, Y1 = 160, 940, CY0 + 70, CY0 + 520
+    ys = lambda v: Y1 - (Y1 - Y0) * v / (ini * 1.33); xs = lambda dd: X0 + (X1 - X0) * dd / (tot + .2)
     d.line([(X0, Y0 - 10), (X0, Y1), (X1 + 20, Y1)], fill=(60, 58, 54), width=4)
-    for k in range(4): d.text((xs(k) - 30, Y1 + 12), f"día {k}", font=MONO(24), fill=GREY)
-    # curve: 60 -> 0 at day 2.3 (sábado), then 0
-    def stock(dd): return max(0, 60 - 60 * dd / 2.3)
-    prog = clamp((t - cs[1]) / (cs[2] + 0.4 - cs[1])) * 3.0 if t > cs[1] else 0
-    if t > cs[0] + 0.3:
-        d.ellipse([xs(0) - 14, ys(60) - 14, xs(0) + 14, ys(60) + 14], fill=INK)
-        paste(c, txt("60 · PEDIDO", MONO(30, "Bold"), INK), xs(0) + 30, ys(60) - 40, al=eo((t - cs[0] - 0.3) / 0.3), anchor="l")
+    for k in range(int(tot) + 1): d.text((xs(k) - 30, Y1 + 12), f"día {k}", font=MONO(24), fill=GREY)
+    stock = lambda dd: max(0, ini - ini * dd / cero)
+    if t > CS[i][0] + .3:
+        d.ellipse([xs(0) - 14, ys(ini) - 14, xs(0) + 14, ys(ini) + 14], fill=INK)
+        paste(c, txt(D_.get("etiqueta", f"{ini} · PEDIDO"), MONO(30, "Bold"), INK), xs(0) + 30, ys(ini) - 40, al=eo((t - CS[i][0] - .3) / .3), anchor="l")
+    prog = clamp((t - ta) / (tb - ta)) * tot
     if prog > 0:
-        pts = [(xs(q), ys(stock(q))) for q in np.linspace(0, prog, 60)]
-        d.line(pts, fill=INK, width=8)
-        if prog > 2.3:
-            d.rectangle([xs(2.3), ys(16), xs(min(prog, 3.0)), Y1 - 3], fill=(226, 58, 46, 255))
-            paste(c, txt("SIN STOCK", ANTON(34), WHITE), (xs(2.3) + xs(min(prog, 3))) / 2, ys(8), al=clamp((prog - 2.5) * 3))
-    # truck arriving at day 3
-    tt = cs[1] + 0.2
-    if t > tt:
-        q = eo((t - tt) / (cs[2] + 0.4 - tt)); tx = X1 + 120 - (X1 + 120 - xs(3)) * q; ty = Y0 + 20
-        d.rounded_rectangle([tx - 70, ty, tx + 10, ty + 54], 6, fill=(40, 110, 220)); d.rounded_rectangle([tx + 10, ty + 16, tx + 50, ty + 54], 6, fill=(30, 80, 170))
+        d.line([(xs(q), ys(stock(q))) for q in np.linspace(0, prog, 60)], fill=INK, width=8)
+        if prog > cero:
+            d.rectangle([xs(cero), ys(ini * .27), xs(prog), Y1 - 3], fill=RED)
+            paste(c, txt("SIN STOCK", ANTON(34), WHITE), (xs(cero) + xs(prog)) / 2, ys(ini * .13), al=clamp((prog - cero - .2) * 3))
+    if D_.get("llegada") and t > ta - .2:
+        q = eo((t - ta + .2) / (tb - ta + .2)); tx = X1 + 120 - (X1 + 120 - xs(tot)) * q; ty = Y0 + 20
+        d.rounded_rectangle([tx - 70, ty, tx + 10, ty + 54], 6, fill=BLUE); d.rounded_rectangle([tx + 10, ty + 16, tx + 50, ty + 54], 6, fill=(30, 80, 170))
         for wx in (tx - 45, tx + 30): d.ellipse([wx - 13, ty + 44, wx + 13, ty + 70], fill=INK)
-        d.text((tx - 80, ty + 78), "3 días", font=MONO(26, "Bold"), fill=(40, 110, 220))
-    stamp(c, "QUIEBRE", 330, 1580, cs[2] + 0.3, t, size=90)
+        d.text((tx - 80, ty + 78), D_["llegada"], font=MONO(26, "Bold"), fill=BLUE)
+def ev_curva(i):
+    D_, ta, tb = curva_cfg(i); tz = ta + (tb - ta) * D_.get("dias_hasta_cero", 2.3) / D_.get("dias", 3)
+    e = [(CS[i][0] + .3, "pop", .35, 900), (tz, "error", .45), (tz + .2, "thud", .9)]
+    if D_.get("llegada"): e.append((ta, "truck", .5))
+    return e
 
-def tile(c, s, cx, cy, t0, t, sub, hot=False, w=170):
+# formula: una cuenta paso a paso. datos: titulo, subtitulo, terminos [["20","venta/día"],"×",...], resultado ["75","pide aquí"]
+def formula_cfg(i):
+    D_ = dat(i); r = 1 if last(i) and D_.get("titulo") else 0
+    items = D_["terminos"] + ["="]; n = len(items)
+    ts = [CS[i][r] + .05 + CD[i][r] * k / n for k in range(n)]
+    tr = min(cend(i, last(i)) + .3, SD[i] - TAIL - .2) if last(i) > r else ts[-1] + .5
+    return D_, r, items, ts, tr
+def sc_formula(c, t, i):
+    D_, r, items, ts, tr = formula_cfg(i); y = 1020
+    allit = items + [D_["resultado"]]
+    ws = [max(150, ANTON(96).getlength(it[0]) + 50) if isinstance(it, list) else 80 for it in allit]
+    sc = min(1., 940 / (sum(ws) + 20 * len(ws))); x = W / 2 - (sum(ws) + 20 * len(ws)) * sc / 2
+    for k, (it, w) in enumerate(zip(allit, ws)):
+        cx = x + (w + 20) * sc / 2; t0 = tr if k == len(allit) - 1 else ts[k]
+        if isinstance(it, list): tile(c, it[0], cx, y, t0, t, it[1] if len(it) > 1 else "", hot=k == len(allit) - 1, w=int(w), sc_=sc)
+        elif t > t0: paste(c, txt(it, ANTON(80), GREY), cx, y, sc=bo((t - t0) / .3) * sc)
+        x += (w + 20) * sc
+    if D_.get("titulo") and t < CS[i][r]:
+        p = eo((t - .2) / .4); paste(c, card(940, 300), W / 2, 1020, al=p)
+        if p > .4:
+            paste(c, txt(D_["titulo"], ANTON(76), INK), W / 2, 980, al=p)
+            if D_.get("subtitulo"): paste(c, txt(D_["subtitulo"], MONO(30, "Bold"), RED), W / 2, 1070, al=p)
+def ev_formula(i):
+    D_, r, items, ts, tr = formula_cfg(i)
+    return [(tt, "pop", .4, 1000) for tt in ts] + [(tr - .5, "chime", .5), (tr, "thud", .8)]
+
+def tile(c, s, cx, cy, t0, t, sub, hot=False, w=170, sc_=1.):
     if t < t0: return
     k = ("tile", s, hot, w)
     if k not in _c:
         im = card(w, 170, 24, RED if hot else WHITE).copy(); d = ImageDraw.Draw(im); f = ANTON(96)
         d.text((30 + w / 2 - f.getlength(s) / 2, 30 + 18), s, font=f, fill=WHITE if hot else INK)
         _c[k] = im
-    q = (t - t0) / 0.35
-    paste(c, _c[k], cx, cy, sc=bo(q), al=clamp(q * 3))
-    paste(c, txt(sub, MONO(24, "Bold"), GREY), cx, cy + 135, al=clamp(q * 2))
+    q = (t - t0) / .35
+    paste(c, _c[k], cx, cy, sc=bo(q) * sc_, al=clamp(q * 3))
+    if sub: paste(c, txt(sub, MONO(24, "Bold"), GREY), cx, cy + 135, al=clamp(q * 2))
 
-def s3(c, t, i=3):
-    cs = CS[i]; d = ImageDraw.Draw(c); y = 1020
-    ops = [("×", 300), ("+", 560), ("=", 800)]
-    seq = [("20", 175, cs[1] + 0.05, "venta/día"), ("3", 425, cs[1] + 0.45, "días"), ("15", 680, cs[1] + 1.0, "colchón")]
-    for s, x, t0, sub in seq: tile(c, s, x, y, t0, t, sub, w=150)
-    for (o, x), t0 in zip(ops, [cs[1] + 0.3, cs[1] + 0.8, cs[2] - 0.1]):
-        if t > t0: paste(c, txt(o, ANTON(80), GREY), x, y, sc=bo((t - t0) / 0.3))
-    tile(c, "75", 935, y, cs[2] + 0.9, t, "pide aquí", hot=True, w=170)
-    if t < cs[1]:
-        p = eo((t - 0.2) / 0.4)
-        paste(c, card(940, 300), W / 2, 1020, al=p)
-        if p > 0.4:
-            paste(c, txt("STOCK DE SEGURIDAD", ANTON(76), INK), W / 2, 980, al=p)
-            paste(c, txt("= colchón para los días malos", MONO(30, "Bold"), RED), W / 2, 1070, al=p)
-    stamp(c, "PUNTO DE PEDIDO", 360, 1580, cs[2] + 1.4, t, rot=-6, size=70)
+# mito: mito vs realidad. datos: mito, realidad
+def mito_cfg(i): return CS[i][0] + .2, CS[i][min(1, last(i))] + .5, CS[i][last(i)] + (.3 if last(i) > 1 else 1.2)
+def note(c, head, body, col, cy, al):
+    f = INTER(44, "SemiBold"); ls = wrap(body, f, 820); h = 110 + 58 * len(ls)
+    im = card(940, h).copy(); d = ImageDraw.Draw(im)
+    d.text((80, 60), head, font=MONO(30, "Bold"), fill=col)
+    for k, l in enumerate(ls): d.text((80, 110 + 58 * k), l, font=f, fill=INK)
+    paste(c, im, W / 2, cy, al=al); return h
+def sc_mito(c, t, i):
+    D_ = dat(i); ta, tx, tr = mito_cfg(i)
+    if t > ta:
+        h = note(c, "MITO", D_.get("mito", ""), GREY, 960, eo((t - ta) / .4))
+        if t > tx:
+            q = eo((t - tx) / .25); d = ImageDraw.Draw(c)
+            d.line([(140, 960 - h / 3), (140 + 800 * q, 960 - h / 3 + (2 * h / 3) * q)], fill=RED, width=14)
+    if t > tr: note(c, "REALIDAD", D_.get("realidad", ""), GREEN, 1300, eo((t - tr) / .4))
+def ev_mito(i):
+    ta, tx, tr = mito_cfg(i); return [(ta, "pop", .35, 800), (tx, "error", .45), (tx + .05, "thud", .8), (tr, "chime", .45)]
 
-def s4(c, t, i=4):
-    cs = CS[i]; p = eo(t / 0.4)
-    paste(c, card(940, 520), W / 2, CY0 + 270 + 60 * (1 - p), al=p)
+# texto: una idea fuerte. datos: grande, chico
+def sc_texto(c, t, i):
+    D_ = dat(i); p = base_card(c, t, 520)
+    if p < .4: return
+    d = ImageDraw.Draw(c); f = ANTON(84); y = CY0 + 90 + 60 * (1 - p)
+    for l in wrap(D_.get("grande", ""), f, 820): d.text((130, y), l, font=f, fill=INK); y += 110
+    if D_.get("chico"): d.text((130, y + 30), D_["chico"], font=MONO(30, "Bold"), fill=RED)
+def ev_texto(i): return [(CS[i][0] + .3, "pop", .4, 900)]
+
+# cierre: marca Opera Mejor + llamada a comentar
+def sc_cierre(c, t, i):
+    cs = CS[i]; p = base_card(c, t, 520)
     if p > 0.4:
         y = CY0 + 150 + 60 * (1 - p); d = ImageDraw.Draw(c)
         d.rounded_rectangle([130, y - 60, 250, y + 60], 26, fill=RED)
@@ -314,28 +383,46 @@ def s4(c, t, i=4):
         d.text((130, y + 110), "IA y herramientas para", font=INTER(40, "Medium"), fill=(90, 85, 80))
         d.text((130, y + 165), "que tu negocio opere mejor", font=INTER(40, "Medium"), fill=(90, 85, 80))
         d.text((130, y + 260), "@operamejor", font=MONO(36, "Bold"), fill=INK)
-    if t > cs[1]:
-        q = bo((t - cs[1]) / 0.4); d = ImageDraw.Draw(c)
+    tq = cs[last(i)]
+    if t > tq:
+        q = bo((t - tq) / 0.4)
         b = Image.new("RGBA", (420, 150), (0, 0, 0, 0)); bd = ImageDraw.Draw(b)
         bd.rounded_rectangle([0, 0, 419, 120], 30, fill=INK); bd.polygon([(60, 118), (110, 118), (60, 150)], fill=INK)
-        bd.text((40, 30), "¿Qué tema sigue?", font=INTER(40, "SemiBold"), fill=WHITE)
+        bd.text((40, 30), dat(i).get("pregunta", "¿Qué tema sigue?"), font=INTER(40, "SemiBold"), fill=WHITE)
         paste(c, b, 300, 1480, sc=q)
-    stamp(c, "SÍGUENOS", 300, 1680, cs[1] + 0.8, t, rot=-5, size=70)
-    T = SD[i]
-    if t > T - 0.5: c.alpha_composite(Image.new("RGBA", (W, H), (236, 232, 225, int(255 * clamp((t - T + 0.5) / 0.5)))))
+def ev_cierre(i): return [(CS[i][last(i)], "pop", .4, 1100), (CS[i][last(i)] + .8, "chime", .45)]
 
-SCN = [s0, s1, s2, s3, s4]
+TIPOS = {"lista": (sc_lista, ev_lista), "barras": (sc_barras, ev_barras), "curva": (sc_curva, ev_curva),
+         "formula": (sc_formula, ev_formula), "mito": (sc_mito, ev_mito), "texto": (sc_texto, ev_texto), "cierre": (sc_cierre, ev_cierre)}
+
+def sello_t(i):
+    s = S[i].get("sello")
+    if not s: return None
+    k = min(s.get("frase", last(i)), last(i)); return min(CS[i][k] + min(1.0, CD[i][k] * .6), SD[i] - .6)
+def events():
+    ev = []
+    for i, st in enumerate(STARTS):
+        if i: ev.append((st - .2, "whoosh", .45))
+        ev += [(st + .15, "pop", .35, 700), (st + .3, "pop", .35, 1000), (st + .35, "tick", .6)]
+        ev += [(st + e[0],) + tuple(e[1:]) for e in TIPOS[S[i].get("tipo", "texto")][1](i)]
+        ts = sello_t(i)
+        if ts is not None: ev.append((st + ts, "thud", .9))
+    return ev
+
 STARTS = list(np.cumsum([0] + SD[:-1]))
 
 def frame(i, t):
-    c = BG.copy()
-    header(c, i, t); SCN[i](c, t)
-    mascot(c, t, STARTS[i] + t, wave=(i == 4), point=(i != 4))
+    c = BG.copy(); tipo = S[i].get("tipo", "texto")
+    header(c, i, t); TIPOS[tipo][0](c, t, i)
+    s = S[i].get("sello"); ts = sello_t(i)
+    if s: stamp(c, s["texto"], s.get("x", 330), 1580, ts, t, rot=s.get("giro", -8), size=s.get("tam", 80))
+    mascot(c, t, STARTS[i] + t, wave=(tipo == "cierre"), point=(tipo != "cierre"))
     draw_caption(c, i, t)
     paste(c, txt("@operamejor", MONO(24, "Bold"), (170, 160, 150)), 70, 1860, anchor="l")
-    if t < 0.12 and i > 0:  # quick flash-wipe in
-        pass
+    if i == len(S) - 1 and t > SD[i] - .5:
+        c.alpha_composite(Image.new("RGBA", (W, H), CREAM + (int(255 * clamp((t - SD[i] + .5) / .5)),)))
     return c
+
 
 def load_venv():
     global VENV
@@ -354,12 +441,10 @@ def render(i):
     if p.wait() == 0: os.replace(tmp, f"{D}/scene_{i}.mp4")
 
 if __name__ == "__main__":
-    json.dump({"CS": CS, "SD": SD, "LEAD": LEAD}, open(f"{D}/timing.json", "w"))
+    json.dump({"CS": CS, "SD": SD, "LEAD": LEAD, "EV": events()}, open(f"{D}/timing.json", "w"))
     load_venv()
-    if sys.argv[1] == "preview":
-        pts = [(0, CS[0][2] + 0.6), (1, SD[1] - 0.3), (2, SD[2] - 0.3), (3, CS[3][0] + 0.5), (3, SD[3] - 0.2), (4, SD[4] - 1.6)]
-        ims = [frame(i, t).convert("RGB").resize((360, 640)) for i, t in pts]
+    if sys.argv[1] == "preview":  # una imagen por escena -> sheet.png
+        ims = [frame(i, SD[i] - (1.0 if i == len(S) - 1 else .3)).convert("RGB").resize((360, 640)) for i in range(len(S))]
         sh = Image.new("RGB", (360 * len(ims), 640)); [sh.paste(im, (360 * k, 0)) for k, im in enumerate(ims)]; sh.save(f"{D}/sheet.png")
-        frame(*pts[4]).convert("RGB").save(f"{D}/full.png")
     else:
-        for i in map(int, sys.argv[1].split(",")): render(i)
+        for i in (range(len(S)) if sys.argv[1] == "all" else map(int, sys.argv[1].split(","))): render(i)

@@ -1,10 +1,5 @@
 {
-    "temas": [
-        {
-            "tema": "Stock de seguridad",
-            "formato": "f\u00f3rmula en 30 s",
-            "estado": "producido",
-            "carpeta": "videos/2026-11-19-stock-de-seguridad"
-        }
-    ]
+  "temas": [
+    {"id": "stock-de-seguridad", "tema": "Stock de seguridad", "formato": "formula", "angulo": "La bodega se queda sin gaseosas el sábado", "estado": "producido", "fecha": "2026-11-19", "carpeta": "videos/2026-11-19-stock-de-seguridad"}
+  ]
 }
