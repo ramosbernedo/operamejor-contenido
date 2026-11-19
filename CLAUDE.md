@@ -6,7 +6,7 @@ El usuario es nuevo en programación: respóndele breve y sin tecnicismos.
 
 ## Flujo
 `temas.json` guarda cada idea con su `estado`: idea → aprobado → producido → revisado → publicado (o `rechazado`).
-1. Lunes: agente **research** propone ideas (estado `idea`) y el usuario aprueba.
+1. Domingo: agente **research** propone ideas (estado `idea`) y el usuario aprueba.
 2. Diario: agente **produccion** toma el siguiente `aprobado`, usa las skills guion → video → publicacion.
 3. Agente **revisor** revisa y deja el video `revisado` o lo devuelve.
 
