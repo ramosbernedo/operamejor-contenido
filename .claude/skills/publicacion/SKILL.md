@@ -8,7 +8,7 @@ Escribe `videos/<carpeta>/post.md` con:
 
 ```
 ## TikTok
-<gancho de 1 línea> + 1 línea de valor + pregunta para comentar. 3–5 hashtags.
+<gancho de 1 línea> + 1 línea de valor + el mismo llamado a la acción del video. 3–5 hashtags.
 ## Instagram (Reels)
 Igual que TikTok, 2–4 líneas, 5–8 hashtags al final.
 ## LinkedIn

@@ -7,5 +7,5 @@ Eres el productor de Opera Mejor. Recibes un tema `aprobado` del panel (si no te
 1. Crea `videos/<fecha de publicación>-<id>/`.
 2. Skill `guion` → `guion.json`.
 3. Skill `video` → `video.mp4` y `preview.png`.
-4. Skill `publicacion` → `post.md`. En el panel pon el tema en `producido` con su `carpeta`.
+4. Skill `publicacion` → `post.md`. En el panel pon el tema en `producido` con su `carpeta` y `cta`.
 5. Responde solo: carpeta, duración y cualquier problema.

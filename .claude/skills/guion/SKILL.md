@@ -35,3 +35,11 @@ Ejemplos completos en `plantilla/ejemplos/`.
 ## Reglas
 - Los números deben cuadrar: lo que dice la voz = lo que muestran los datos = la cuenta correcta.
 - Ejemplos de bodega peruana (gaseosas, arroz, aceite, Yape, proveedor que tarda). Nada de inglés innecesario.
+
+## Llamado a la acción (prueba de qué funciona)
+El `cierre` rota entre 3 llamados. Mira en el panel el `cta` de los últimos temas producidos y usa el que toque:
+- `comentar` — voz: "¿Te pasó? *Coméntalo*." · `pregunta`: "¿Te pasó?"
+- `calculadora` — voz: "Calcula tu stock gratis en *OperaMejor.pe*." · `pregunta`: "OperaMejor.pe"
+- `whatsapp` — voz: "¿Quieres ayuda? *Escríbenos*." · `pregunta`: "Link en la bio"
+
+Anota el llamado usado como `cta` en el tema del panel.
