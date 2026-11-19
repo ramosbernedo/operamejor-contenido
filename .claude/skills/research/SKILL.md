@@ -4,10 +4,7 @@ description: Buscar y proponer temas nuevos para los videos de Opera Mejor y agr
 ---
 # Research de temas
 
-1. Lee `temas.json` para no repetir temas.
-2. Busca en la web problemas reales de inventario, compras, ventas y operación en bodegas, minimarkets y pymes de Perú (y temas de IA útiles para ellas). Prefiere fuentes peruanas y datos recientes.
-3. Propón **7 ideas** y agrégalas con `"estado": "idea"`. Cada una con:
-   - `id` (corto, con guiones), `tema`, `angulo` (el problema concreto en una frase, con un ejemplo de bodega)
-   - `formato`: rota entre `error` (error común), `formula` (fórmula en 30 s) y `mito` (mito vs realidad)
-   - `fuente`: enlace o "conocimiento general" si es un concepto clásico
-4. Al usuario muéstrale solo una lista numerada corta: `1. Tema — ángulo (formato)`. Pregúntale cuáles aprueba. Cuando responda, cambia esas a `aprobado` y las demás a `rechazado`.
+1. Lee la colección `temas` del panel (ver CLAUDE.md) para no repetir temas (ni los rechazados).
+2. Busca en la web problemas reales de inventario, compras, ventas y operación en bodegas, minimarkets y pymes de Perú (y usos de IA útiles para ellas). Prefiere fuentes peruanas y datos recientes.
+3. Agrega las ideas que falten (para llegar a ~10 pendientes) con un solo `ArtifactData` batch, cada una con `estado: "idea"`, `creado` (ahora, ISO), `tema` (máx. 5 palabras), `angulo` (el problema concreto en una frase, con un ejemplo de bodega), `formato` rotando entre `error`, `formula` y `mito`, y `fuente` (enlace o "conocimiento general").
+4. El usuario aprueba deslizando en el panel. No le pidas que apruebe por chat: solo mándale el link del panel en una línea.

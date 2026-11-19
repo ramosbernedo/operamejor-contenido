@@ -4,11 +4,19 @@ Consultora de supply chain + IA en Perú. Público: dueños de bodegas, minimark
 
 El usuario es nuevo en programación: respóndele breve y sin tecnicismos.
 
-## Flujo
-`temas.json` guarda cada idea con su `estado`: idea → aprobado → producido → revisado → publicado (o `rechazado`).
-1. Domingo: agente **research** propone ideas (estado `idea`) y el usuario aprueba.
-2. Diario: agente **produccion** toma el siguiente `aprobado`, usa las skills guion → video → publicacion.
-3. Agente **revisor** revisa y deja el video `revisado` o lo devuelve.
+## Temas: el panel es la lista
+Los temas viven en la base de datos del panel **https://claude.ai/artifact/PmEKYNt6r4M2ig3rkhS2GE** (código en `panel/aprobar.html`), colección `temas`. Léela y escríbela con la herramienta `ArtifactData` (carga su esquema con ToolSearch "select:ArtifactData"). Siempre pasa `if_version` al modificar un tema existente.
 
-Carpeta de cada video: `videos/AAAA-MM-DD-tema/` con guion.json, post.md, revision.md. Los MP4 y WAV no se suben a git.
+Cada tema (doc id = id corto con guiones): `tema`, `angulo`, `formato` (error | formula | mito), `fuente`, `estado`, `creado` (fecha ISO), y al producirlo `carpeta`.
+Estados: idea → aprobado (o rechazado, lo decide el usuario deslizando en el panel) → producido → revisado → publicado.
+
+## Stock de seguridad de temas
+Siempre debe haber **7 temas aprobados**. Cada noche, antes de producir: si hay menos de 7 aprobados y menos de 10 ideas pendientes, el agente **research** agrega ideas nuevas y se avisa al usuario con el link del panel.
+
+## Flujo diario (10 pm, video para mañana)
+1. Revisar stock de temas (arriba).
+2. Agente **produccion**: toma el aprobado más antiguo → guion → video → post.
+3. Agente **revisor**: revisa y corrige.
+
+Carpeta de cada video: `videos/AAAA-MM-DD-id/` con guion.json, post.md, revision.md. Los MP4 y WAV no se suben a git.
 Al terminar, haz commit y push a `main`.

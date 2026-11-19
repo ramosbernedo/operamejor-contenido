@@ -21,4 +21,4 @@ TikTok e Instagram: 7 pm (o 12:30 pm). LinkedIn: 8 am, de martes a jueves. Ajust
 
 Hashtags en español y locales (#bodegasperu, #emprendedoresperu, #inventarios, #pymesperu…). Sin emojis en exceso (máx. 2 por texto).
 
-Después marca el tema como `producido` en `temas.json`. La publicación en redes la hace el usuario: envíale el video y el post.
+La publicación en redes la hace el usuario: envíale el video y el post.
