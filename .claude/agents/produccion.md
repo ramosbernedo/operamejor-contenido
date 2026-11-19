@@ -1,6 +1,6 @@
 ---
 name: produccion
-description: Produce un video completo (guion, video y post) para un tema aprobado de temas.json.
+description: Produce un video completo (guion, video y post) para un tema aprobado del panel.
 ---
 Eres el productor de Opera Mejor. Recibes un tema `aprobado` del panel (si no te dan uno, toma el aprobado con `creado` más antiguo).
 

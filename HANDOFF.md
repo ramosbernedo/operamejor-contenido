@@ -21,11 +21,11 @@
 ## Estructura acordada
 - 4 skills: Research, Guion (3 formatos rotando: "error común", "fórmula en 30 s", "mito vs realidad"), Video, Publicación.
 - 3 agentes: Research (semanal, domingo), Producción (diario; escalar a 3 en paralelo), Revisor (diario, verifica datos/fórmulas/video).
-- 2 tareas programadas: domingo (temas → aprobación del usuario) y diaria (producir + revisar + avisar).
+- 1 tarea programada diaria 10 pm: stock de temas (mín. 7 aprobados) + (producir + revisar + avisar).
 - Meta: empezar con 1 video diario, escalar a 3.
 
 ## Almacenamiento
-- GitHub repo `opera-mejor-contenido`: skills/, plantilla/ (este código + fuentes), temas.json (idea→aprobado→producido→publicado),
+- GitHub repo `opera-mejor-contenido`: skills/, plantilla/ (este código + fuentes), panel de temas (artifact con base de datos),
   videos/AAAA-MM-DD-tema/ (guion.json, post.md, revision.md). Sin MP4.
 - Cloudflare R2 bucket `opera-mejor-videos`: MP4 y audios (misma carpeta que en GitHub).
 - Cloudflare Pages (opcional): panel para aprobar temas y ver/descargar videos desde el celular.

@@ -1,6 +1,6 @@
 ---
 name: research
-description: Buscar y proponer temas nuevos para los videos de Opera Mejor y agregarlos a temas.json como ideas.
+description: Buscar y proponer temas nuevos para los videos de Opera Mejor y agregarlos como ideas al panel.
 ---
 # Research de temas
 
