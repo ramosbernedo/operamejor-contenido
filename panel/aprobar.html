@@ -91,7 +91,7 @@ function render(){
   if (!ideas.length && db) {
     empty.innerHTML = aprobados >= META
       ? "<h3>Stock completo</h3><p>Tienes " + aprobados + " temas aprobados. Cuando bajen de 7, llegarán temas nuevos aquí.</p>"
-      : "<h3>Nada por revisar</h3><p>Esta noche el research buscará temas nuevos para completar tu stock.</p>";
+      : "<h3>Nada por revisar</h3><p>Mañana a las 7:30 am el research buscará temas nuevos para completar tu stock.</p>";
   }
   ideas.slice(0, 2).reverse().forEach((t, k, arr) => {
     const top = k === arr.length - 1;

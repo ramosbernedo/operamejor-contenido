@@ -21,7 +21,7 @@
 ## Estructura acordada
 - 4 skills: Research, Guion (3 formatos rotando: "error común", "fórmula en 30 s", "mito vs realidad"), Video, Publicación.
 - 3 agentes: Research (semanal, domingo), Producción (diario; escalar a 3 en paralelo), Revisor (diario, verifica datos/fórmulas/video).
-- 1 tarea programada diaria 10 pm: stock de temas (mín. 7 aprobados) + (producir + revisar + avisar).
+- 1 tarea programada diaria 7:30 am: stock de temas (mín. 7 aprobados) + (producir + revisar + avisar).
 - Meta: empezar con 1 video diario, escalar a 3.
 
 ## Almacenamiento

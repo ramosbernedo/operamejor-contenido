@@ -11,9 +11,9 @@ Cada tema (doc id = id corto con guiones): `tema`, `angulo`, `formato` (error | 
 Estados: idea → aprobado (o rechazado, lo decide el usuario deslizando en el panel) → producido → revisado → publicado.
 
 ## Stock de seguridad de temas
-Siempre debe haber **7 temas aprobados**. Cada noche, antes de producir: si hay menos de 7 aprobados y menos de 10 ideas pendientes, el agente **research** agrega ideas nuevas y se avisa al usuario con el link del panel.
+Siempre debe haber **7 temas aprobados**. Cada mañana, antes de producir: si hay menos de 7 aprobados y menos de 10 ideas pendientes, el agente **research** agrega ideas nuevas y se avisa al usuario con el link del panel.
 
-## Flujo diario (10 pm, video para mañana)
+## Flujo diario (7:30 am, video para hoy)
 1. Revisar stock de temas (arriba).
 2. Agente **produccion**: toma el aprobado más antiguo → guion → video → post.
 3. Agente **revisor**: revisa y corrige.
