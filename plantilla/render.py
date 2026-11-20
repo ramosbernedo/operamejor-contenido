@@ -366,8 +366,9 @@ def ev_mito(i):
 def sc_texto(c, t, i):
     D_ = dat(i); p = base_card(c, t, 520)
     if p < .4: return
-    d = ImageDraw.Draw(c); f = ANTON(84); y = CY0 + 90 + 60 * (1 - p)
-    for l in wrap(D_.get("grande", ""), f, 820): d.text((130, y), l, font=f, fill=INK); y += 110
+    g = D_.get("grande", ""); big = len(g) <= 8  # cifra corta = gigante y roja (gancho)
+    d = ImageDraw.Draw(c); f = ANTON(230 if big else 84); y = CY0 + (40 if big else 90) + 60 * (1 - p)
+    for l in wrap(g, f, 820): d.text((130, y), l, font=f, fill=RED if big else INK); y += 290 if big else 110
     if D_.get("chico"): d.text((130, y + 30), D_["chico"], font=MONO(30, "Bold"), fill=RED)
 def ev_texto(i): return [(CS[i][0] + .3, "pop", .4, 900)]
 
