@@ -6,7 +6,7 @@ description: Buscar y proponer temas nuevos para los videos de Opera Mejor y agr
 
 1. Lee la colección `temas` del panel (ver CLAUDE.md) para no repetir temas (ni los rechazados).
    **Aprende de los resultados:** mira los temas `publicado` con `vistas`, `retencion_prom_seg`, `vio_completo_pct`, `guardados`, `comentarios` y `cta`. La retención dice si el gancho funcionó; los guardados, si el tema es útil. ¿Qué formatos, ángulos y ganchos funcionaron mejor? Propón más de eso. Lo rechazado por el usuario también enseña qué no le gusta.
-2. Busca en la web problemas reales de inventario, compras, ventas y operación en bodegas, minimarkets y pymes de Perú (y usos de IA útiles para ellas). Prefiere fuentes peruanas y datos recientes.
+2. Busca en la web problemas reales de pymes peruanas (bodegas, minimarkets, restaurantes, tiendas) en **todas las áreas del negocio**: ventas, caja y finanzas, precios y márgenes, inventario y compras, atención al cliente, marketing, personal, procesos y usos prácticos de IA. Varía las áreas: no más de 2 de cada 7 ideas sobre inventario. Prefiere fuentes peruanas y datos recientes.
 3. Agrega las ideas que falten (para llegar a ~10 pendientes) con un solo `ArtifactData` batch, cada una con `estado: "idea"`, `creado` (ahora, ISO), `tema` (máx. 5 palabras), `angulo` (el problema concreto en una frase, con un ejemplo de bodega), `formato` rotando entre `error`, `formula` y `mito`, `fuente` (enlace o "conocimiento general"),
    `potencial` (1–5) y `porque` (una línea que explica el puntaje).
 

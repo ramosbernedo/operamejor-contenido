@@ -2,60 +2,85 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
-/* Una sola pantalla: contador de stock arriba, pila de tarjetas al centro, botones abajo. Marca de los videos: crema, tinta, rojo. */
+/* App de una columna: cabecera con stock, pestañas por estado, contenido de cada pestaña. Marca de los videos: crema con puntos, tinta, rojo. */
 :root{
-  --bg:#ece8e1; --dot:#d3cdc3; --card:#fffdfa; --ink:#1a1816; --muted:#6f6962; --red:#e23a2e; --green:#2e9650; --line:#ddd6cc;
+  --bg:#ece8e1; --dot:#d6d0c6; --card:#fffdfa; --ink:#1a1816; --muted:#6f6962; --red:#e23a2e; --green:#2e9650; --amber:#c98a12; --line:#ddd6cc; --soft:#f4f0ea;
   --display:"Anton",Impact,"Arial Narrow",sans-serif; --body:"Inter",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1917;--dot:#2f2b27;--card:#262320;--ink:#f1ece4;--muted:#a59d93;--red:#f0574a;--green:#4cc274;--line:#3a3530;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#1b1917;--dot:#2f2b27;--card:#262320;--ink:#f1ece4;--muted:#a59d93;--red:#f0574a;--green:#4cc274;--line:#3a3530;color-scheme:dark}
-html,body{height:100%}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1917;--dot:#2c2925;--card:#262320;--ink:#f1ece4;--muted:#a59d93;--red:#f0574a;--green:#4cc274;--amber:#e3a73a;--line:#3a3530;--soft:#2e2a26;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1b1917;--dot:#2c2925;--card:#262320;--ink:#f1ece4;--muted:#a59d93;--red:#f0574a;--green:#4cc274;--amber:#e3a73a;--line:#3a3530;--soft:#2e2a26;color-scheme:dark}
+html,body{min-height:100%}
 body{background:var(--bg) radial-gradient(var(--dot) 1.5px,transparent 1.6px) 0 0/27px 27px;color:var(--ink);font-family:var(--body);
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));box-sizing:border-box;overflow:hidden}
-.app{max-width:440px;margin:0 auto;height:100%;display:flex;flex-direction:column;gap:18px;padding-block:20px 24px;box-sizing:border-box}
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.app{max-width:520px;margin:0 auto;padding-block:18px 32px;display:flex;flex-direction:column;gap:16px}
 .top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
-.brand{font-family:var(--display);font-size:30px;line-height:1;letter-spacing:.01em}
+.brand{font-family:var(--display);font-size:30px;line-height:1}
 .brand span{color:var(--red)}
 .lab{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
 .stock{text-align:right}
-.stock b{font-family:var(--display);font-size:34px;font-weight:400;line-height:1}
+.stock b{font-family:var(--display);font-size:32px;font-weight:400;line-height:1}
 .stock b.low{color:var(--red)}
 .bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:6px;width:120px;margin-left:auto}
 .bar i{display:block;height:100%;background:var(--ink);transition:width .3s}
-.deck{position:relative;flex:1;min-height:0}
-.c{position:absolute;inset:0;background:var(--card);border-radius:24px;box-shadow:0 14px 36px rgba(40,25,10,.16);padding:26px 24px;
-  display:flex;flex-direction:column;gap:14px;touch-action:none;user-select:none;cursor:grab;box-sizing:border-box;overflow:hidden}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:var(--card);padding:4px;border-radius:14px;box-shadow:0 4px 14px rgba(40,25,10,.08)}
+.tabs button{border:0;background:none;color:var(--muted);font:600 13px var(--body);padding:9px 2px;border-radius:10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
+.tabs button b{font:400 20px var(--display);color:var(--ink)}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--card)}
+.tabs button[aria-selected="true"] b{color:var(--card)}
+.tabs button:focus-visible,.btn:focus-visible,.round:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.deck{position:relative;height:min(58vh,470px);min-height:360px}
+.c{position:absolute;inset:0;background:var(--card);border-radius:24px;box-shadow:0 14px 36px rgba(40,25,10,.16);padding:24px 22px;
+  display:flex;flex-direction:column;gap:12px;touch-action:none;user-select:none;cursor:grab;overflow:hidden}
 .c.back{transform:scale(.95) translateY(14px);opacity:.7}
-.c .fmt{align-self:flex-start;font-family:var(--mono);font-size:12px;font-weight:700;padding:6px 10px;border-radius:8px;background:var(--ink);color:var(--card)}
-.c h2{font-family:var(--display);font-weight:400;font-size:clamp(34px,10vw,46px);line-height:1.02;margin:6px 0 0;text-transform:uppercase;text-wrap:balance}
-.c p{font-size:18px;line-height:1.45;margin:0;color:var(--ink)}
-.c .pot{font-size:20px;letter-spacing:3px;color:var(--red);line-height:1}
-.c .pot s{text-decoration:none;color:var(--line)}
-.c .pot span{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--muted);vertical-align:3px}
-.c p.why{font-size:15px;color:var(--muted);border-left:3px solid var(--red);padding-left:10px}
-.c .src{margin-top:auto;font-family:var(--mono);font-size:12px;color:var(--muted);overflow-wrap:anywhere}
-.tag{position:absolute;top:30px;font-family:var(--display);font-size:38px;padding:4px 14px;border:5px solid;border-radius:12px;opacity:0;pointer-events:none}
-.tag.si{left:22px;color:var(--green);transform:rotate(-12deg)}
-.tag.no{right:22px;color:var(--red);transform:rotate(12deg)}
-.empty{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px;padding:24px;
-  border:2px dashed var(--line);border-radius:24px}
-.empty h3{font-family:var(--display);font-weight:400;font-size:30px;margin:0}
-.empty p{margin:0;color:var(--muted);max-width:30ch;line-height:1.45}
-.btns{display:flex;justify-content:center;align-items:center;gap:28px}
-.btns button{width:72px;height:72px;border-radius:50%;border:none;background:var(--card);box-shadow:0 8px 20px rgba(40,25,10,.15);font-size:32px;cursor:pointer;
-  display:grid;place-items:center;color:var(--red)}
-.btns button.ok{color:var(--green)}
-.btns button.undo{width:48px;height:48px;font-size:20px;color:var(--muted)}
-.btns button:disabled{opacity:.35;cursor:default}
-.btns button:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.chips{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.fmt{font-family:var(--mono);font-size:11px;font-weight:700;padding:5px 9px;border-radius:7px;background:var(--ink);color:var(--card);white-space:nowrap}
+.pot{font-size:16px;letter-spacing:2px;color:var(--red);line-height:1;white-space:nowrap}
+.pot s{text-decoration:none;color:var(--line)}
+.c h2{font-family:var(--display);font-weight:400;font-size:clamp(32px,9vw,44px);line-height:1.02;margin:4px 0 0;text-transform:uppercase;text-wrap:balance}
+.c p{font-size:17px;line-height:1.45;margin:0}
+.c p.why{font-size:14px;color:var(--muted);border-left:3px solid var(--red);padding-left:10px}
+.c .src{margin-top:auto;font-family:var(--mono);font-size:11px;color:var(--muted);overflow-wrap:anywhere}
+.tag{position:absolute;top:28px;font-family:var(--display);font-size:36px;padding:2px 12px;border:5px solid;border-radius:12px;opacity:0;pointer-events:none}
+.tag.si{left:20px;color:var(--green);transform:rotate(-12deg)}
+.tag.no{right:20px;color:var(--red);transform:rotate(12deg)}
+.empty{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px;padding:24px;border:2px dashed var(--line);border-radius:24px}
+.empty h3{font-family:var(--display);font-weight:400;font-size:28px;margin:0}
+.empty p{margin:0;color:var(--muted);max-width:32ch;line-height:1.45}
+.btns{display:flex;justify-content:center;align-items:center;gap:26px}
+.round{width:68px;height:68px;border-radius:50%;border:none;background:var(--card);box-shadow:0 8px 20px rgba(40,25,10,.15);font-size:30px;cursor:pointer;display:grid;place-items:center;color:var(--red)}
+.round.ok{color:var(--green)} .round.undo{width:46px;height:46px;font-size:19px;color:var(--muted)}
+.round:disabled{opacity:.35;cursor:default}
+.btn{border:0;border-radius:12px;padding:12px 16px;font:600 15px var(--body);cursor:pointer;background:var(--ink);color:var(--card);display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn.small{padding:7px 11px;font-size:13px;border-radius:9px}
+.btn:disabled{opacity:.5;cursor:default}
+.search{display:flex;flex-direction:column;gap:6px;align-items:stretch}
 .msg{min-height:18px;text-align:center;font-size:13px;color:var(--muted)}
+.list{display:flex;flex-direction:column;gap:10px}
+.row{background:var(--card);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;box-shadow:0 4px 14px rgba(40,25,10,.07)}
+.row h4{margin:0;font:700 17px/1.25 var(--body)}
+.row p{margin:0;font-size:14px;line-height:1.4;color:var(--muted)}
+.row .acts{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.pill{font-family:var(--mono);font-size:11px;font-weight:700;padding:4px 8px;border-radius:999px;white-space:nowrap}
+.pill.producido{background:var(--soft);color:var(--muted)} .pill.revisado{background:color-mix(in srgb,var(--amber) 18%,transparent);color:var(--amber)}
+.pill.publicado{background:color-mix(in srgb,var(--green) 18%,transparent);color:var(--green)}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.metrics div{background:var(--soft);border-radius:10px;padding:8px 10px}
+.metrics b{display:block;font:400 22px var(--display);font-variant-numeric:tabular-nums}
+.metrics span{font-family:var(--mono);font-size:10px;color:var(--muted)}
+.metrics b.bad{color:var(--red)} .metrics b.good{color:var(--green)}
+form.res{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+form.res label{display:flex;flex-direction:column;gap:4px;font:600 12px var(--body);color:var(--muted)}
+form.res input{font:500 16px var(--body);padding:9px 10px;border-radius:9px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);min-width:0}
+form.res .full{grid-column:1/-1;display:flex;gap:8px;justify-content:flex-end}
+.note{font-size:13px;color:var(--muted);text-align:center;margin:4px 0 0}
 @media (prefers-reduced-motion:reduce){.c{transition:none!important}}
 </style>
 
 <div class="app">
   <div class="top">
     <div>
-      <div class="lab">// temas por aprobar</div>
+      <div class="lab">// fábrica de contenido</div>
       <div class="brand">OPERA <span>MEJOR</span></div>
     </div>
     <div class="stock" aria-live="polite">
@@ -64,67 +89,134 @@ body{background:var(--bg) radial-gradient(var(--dot) 1.5px,transparent 1.6px) 0 
       <div class="bar"><i id="barfill" style="width:0"></i></div>
     </div>
   </div>
-  <div class="deck" id="deck">
-    <div class="empty" id="empty">
-      <h3>Cargando temas…</h3>
-      <p>Aquí aparecen los temas nuevos, uno por tarjeta.</p>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-v="ideas" aria-selected="true"><b id="k-ideas">0</b>Por decidir</button>
+    <button role="tab" data-v="aprobados" aria-selected="false"><b id="k-aprobados">0</b>Aprobados</button>
+    <button role="tab" data-v="videos" aria-selected="false"><b id="k-videos">0</b>Videos</button>
+    <button role="tab" data-v="rechazados" aria-selected="false"><b id="k-rechazados">0</b>Descartados</button>
+  </nav>
+
+  <section id="v-ideas">
+    <div class="deck" id="deck">
+      <div class="empty" id="empty"><h3>Cargando temas…</h3><p>Aquí aparecen los temas nuevos, uno por tarjeta.</p></div>
     </div>
+    <div class="btns" style="margin-top:16px">
+      <button class="round" id="bno" aria-label="Descartar tema">✕</button>
+      <button class="round undo" id="bundo" aria-label="Deshacer el último" disabled>↺</button>
+      <button class="round ok" id="bsi" aria-label="Aprobar tema">✓</button>
+    </div>
+    <div class="msg" id="msg">Desliza → para aprobar, ← para descartar</div>
+  </section>
+
+  <section id="v-aprobados" hidden><div class="list" id="l-aprobados"></div></section>
+  <section id="v-videos" hidden><div class="list" id="l-videos"></div></section>
+  <section id="v-rechazados" hidden><div class="list" id="l-rechazados"></div></section>
+
+  <div class="search" id="searchbox">
+    <button class="btn" id="bsearch">＋ Buscar 5 temas nuevos</button>
+    <div class="msg" id="smsg"></div>
   </div>
-  <div class="btns">
-    <button id="bno" aria-label="Descartar tema">✕</button>
-    <button id="bundo" class="undo" aria-label="Deshacer el último" disabled>↺</button>
-    <button id="bsi" class="ok" aria-label="Aprobar tema">✓</button>
-  </div>
-  <div class="msg" id="msg">Desliza → para aprobar, ← para descartar</div>
 </div>
 
 <script>
 const FMT = { error: "Error común", formula: "Fórmula en 30 s", mito: "Mito vs realidad" };
-const META = 7;
+const CTA = { comentar: "Comentar", calculadora: "Calculadora web", whatsapp: "WhatsApp" };
+const META = 7, VIDEO = ["producido", "revisado", "publicado"];
 const $ = id => document.getElementById(id);
-let db = null, ideas = [], aprobados = 0, last = null, busy = false;
+let db = null, sample = null, all = [], ideas = [], last = null, busy = false, view = "ideas", openForm = null;
 
-function esc(s){ const d = document.createElement("div"); d.textContent = s ?? ""; return d.innerHTML; }
+const esc = s => { const d = document.createElement("div"); d.textContent = s ?? ""; return d.innerHTML; };
+const dots = p => p ? `<span class="pot" aria-label="Potencial ${p} de 5">${"●".repeat(p)}<s>${"●".repeat(5 - p)}</s></span>` : "";
+const num = v => (v === undefined || v === null || v === "") ? "–" : Number(v).toLocaleString("es-PE");
+const by = s => all.filter(t => s.includes(t.estado));
 
 function render(){
-  const n = $("n"); n.textContent = aprobados; n.classList.toggle("low", aprobados < META);
-  $("barfill").style.width = Math.min(100, aprobados / META * 100) + "%";
+  const apr = by(["aprobado"]);
+  $("n").textContent = apr.length; $("n").classList.toggle("low", apr.length < META);
+  $("barfill").style.width = Math.min(100, apr.length / META * 100) + "%";
+  $("k-ideas").textContent = ideas.length; $("k-aprobados").textContent = apr.length;
+  $("k-videos").textContent = by(VIDEO).length; $("k-rechazados").textContent = by(["rechazado"]).length;
+  document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.v === view));
+  ["ideas", "aprobados", "videos", "rechazados"].forEach(v => $("v-" + v).hidden = v !== view);
+  $("searchbox").hidden = !(view === "ideas" || view === "aprobados");
+  $("bsearch").disabled = !db || !sample || busy;
+  if (!sample && db) $("smsg").textContent = "La búsqueda con Claude no está disponible en esta vista.";
+  if (view === "ideas") renderDeck();
+  if (view === "aprobados") renderList("l-aprobados", apr, t => `<button class="btn small ghost" data-act="rechazado" data-id="${t.id}">Quitar</button>`,
+    "Aún no hay temas aprobados. Desliza → en Por decidir.");
+  if (view === "rechazados") renderList("l-rechazados", by(["rechazado"]), t => `<button class="btn small ghost" data-act="idea" data-id="${t.id}">Recuperar</button>`,
+    "No has descartado ningún tema.");
+  if (view === "videos") renderVideos();
+}
+
+function renderList(id, items, actions, emptyText){
+  $(id).innerHTML = items.length ? items.map(t => `<article class="row">
+      <div class="chips"><span class="fmt">${esc(FMT[t.formato] || t.formato || "tema")}</span>${dots(t.potencial)}</div>
+      <h4>${esc(t.tema)}</h4><p>${esc(t.angulo)}</p>
+      <div class="acts">${actions(t)}</div></article>`).join("")
+    : `<p class="note">${emptyText}</p>`;
+}
+
+function renderVideos(){
+  const items = by(VIDEO).sort((a, b) => String(b.carpeta || "").localeCompare(String(a.carpeta || "")));
+  if (!items.length) { $("l-videos").innerHTML = `<p class="note">Todavía no hay videos. La fábrica hace uno cada día a las 7:30 am.</p>`; return; }
+  $("l-videos").innerHTML = items.map(t => {
+    const fecha = (t.carpeta || "").match(/\d{4}-\d{2}-\d{2}/)?.[0] || "";
+    const pub = t.estado === "publicado";
+    const ret = t.retencion_prom_seg, comp = t.vio_completo_pct;
+    const m = pub ? `<div class="metrics">
+        <div><b>${num(t.vistas)}</b><span>vistas</span></div>
+        <div><b>${num(t.likes)}</b><span>likes</span></div>
+        <div><b>${num(t.guardados)}</b><span>guardados</span></div>
+        <div><b>${num(t.comentarios)}</b><span>comentarios</span></div>
+        <div><b class="${ret == null ? "" : ret < 8 ? "bad" : "good"}">${ret == null ? "–" : ret + " s"}</b><span>ven en promedio</span></div>
+        <div><b class="${comp == null ? "" : comp < 15 ? "bad" : "good"}">${comp == null ? "–" : comp + "%"}</b><span>lo ven completo</span></div>
+      </div>` : "";
+    const form = openForm === t.id ? `<form class="res" data-id="${t.id}">
+        ${[["vistas", "Vistas"], ["likes", "Likes"], ["guardados", "Guardados"], ["comentarios", "Comentarios"], ["retencion_prom_seg", "Segundos que ven (promedio)"], ["vio_completo_pct", "% que lo ve completo"]]
+          .map(([k, l]) => `<label for="f-${t.id}-${k}">${l}<input id="f-${t.id}-${k}" name="${k}" type="number" step="any" min="0" inputmode="decimal" value="${t[k] ?? ""}"></label>`).join("")}
+        <div class="full"><button type="button" class="btn small ghost" data-cancel>Cancelar</button><button class="btn small">Guardar resultados</button></div>
+      </form>` : `<div class="acts"><button class="btn small ${pub ? "ghost" : ""}" data-form="${t.id}">${pub ? "Actualizar resultados" : "Anotar resultados"}</button></div>`;
+    return `<article class="row">
+      <div class="chips"><span class="pill ${t.estado}">${t.estado === "revisado" ? "listo para publicar" : t.estado}</span>
+        <span class="lab">${esc(fecha)}${t.cta ? " · llamado: " + esc(CTA[t.cta] || t.cta) : ""}</span></div>
+      <h4>${esc(t.tema)}</h4>${m}${form}</article>`;
+  }).join("");
+}
+
+function renderDeck(){
   $("deck").querySelectorAll(".c").forEach(e => e.remove());
-  const empty = $("empty");
-  empty.hidden = ideas.length > 0;
+  const empty = $("empty"); empty.hidden = ideas.length > 0;
   if (!ideas.length && db) {
-    empty.innerHTML = aprobados >= META
-      ? "<h3>Stock completo</h3><p>Tienes " + aprobados + " temas aprobados. Cuando bajen de 7, llegarán temas nuevos aquí.</p>"
-      : "<h3>Nada por revisar</h3><p>Mañana a las 7:30 am el research buscará temas nuevos para completar tu stock.</p>";
+    const a = by(["aprobado"]).length;
+    empty.innerHTML = a >= META
+      ? `<h3>Stock completo</h3><p>Tienes ${a} temas aprobados. Si quieres más opciones, busca temas nuevos abajo.</p>`
+      : `<h3>Nada por decidir</h3><p>Te faltan ${META - a} temas aprobados. Toca “Buscar 5 temas nuevos”.</p>`;
   }
   ideas.slice(0, 2).reverse().forEach((t, k, arr) => {
-    const top = k === arr.length - 1;
-    const el = document.createElement("article");
+    const top = k === arr.length - 1, el = document.createElement("article");
     el.className = "c" + (top ? "" : " back");
-    el.innerHTML = '<span class="fmt">' + esc(FMT[t.formato] || t.formato || "tema") + '</span>'
-      + (t.potencial ? '<div class="pot" aria-label="Potencial ' + t.potencial + ' de 5">' + '●'.repeat(t.potencial) + '<s>' + '●'.repeat(5 - t.potencial) + '</s> <span>potencial</span></div>' : '')
-      + '<h2>' + esc(t.tema) + '</h2><p>' + esc(t.angulo) + '</p>'
-      + (t.porque ? '<p class="why">' + esc(t.porque) + '</p>' : '')
-      + (t.fuente ? '<div class="src">fuente: ' + esc(t.fuente) + '</div>' : '')
-      + '<div class="tag si">SÍ</div><div class="tag no">NO</div>';
+    el.innerHTML = `<div class="chips"><span class="fmt">${esc(FMT[t.formato] || t.formato || "tema")}</span>${dots(t.potencial)}</div>
+      <h2>${esc(t.tema)}</h2><p>${esc(t.angulo)}</p>${t.porque ? `<p class="why">${esc(t.porque)}</p>` : ""}
+      ${t.fuente ? `<div class="src">fuente: ${esc(t.fuente)}</div>` : ""}<div class="tag si">SÍ</div><div class="tag no">NO</div>`;
     $("deck").appendChild(el);
-    if (top) drag(el, t);
+    if (top) drag(el);
   });
   $("bsi").disabled = $("bno").disabled = !ideas.length || busy;
   $("bundo").disabled = !last || busy;
 }
 
-function drag(el, t){
-  let x0 = null, dx = 0;
-  const si = el.querySelector(".tag.si"), no = el.querySelector(".tag.no");
-  el.addEventListener("pointerdown", e => { x0 = e.clientX; el.setPointerCapture(e.pointerId); el.style.transition = "none"; el.style.cursor = "grabbing"; });
+function drag(el){
+  let x0 = null, dx = 0; const si = el.querySelector(".tag.si"), no = el.querySelector(".tag.no");
+  el.addEventListener("pointerdown", e => { x0 = e.clientX; el.setPointerCapture(e.pointerId); el.style.transition = "none"; });
   el.addEventListener("pointermove", e => {
     if (x0 === null) return; dx = e.clientX - x0;
     el.style.transform = `translateX(${dx}px) rotate(${dx / 18}deg)`;
     si.style.opacity = Math.max(0, dx / 110); no.style.opacity = Math.max(0, -dx / 110);
   });
   const end = () => {
-    if (x0 === null) return; x0 = null; el.style.cursor = "";
+    if (x0 === null) return; x0 = null;
     if (Math.abs(dx) > 100) decide(dx > 0 ? "aprobado" : "rechazado", el);
     else { el.style.transition = "transform .25s"; el.style.transform = ""; si.style.opacity = no.style.opacity = 0; }
     dx = 0;
@@ -132,45 +224,98 @@ function drag(el, t){
   el.addEventListener("pointerup", end); el.addEventListener("pointercancel", end);
 }
 
+async function setEstado(id, estado, extra = {}){
+  await db.doc("temas/" + id).update({ estado, decidido: new Date().toISOString(), ...extra });
+}
+
 async function decide(estado, el){
   const t = ideas[0]; if (!t || busy || !db) return;
   el = el || $("deck").querySelector(".c:not(.back)");
-  if (el) { el.style.transition = "transform .3s, opacity .3s"; el.style.transform = `translateX(${estado === "aprobado" ? 140 : -140}%) rotate(${estado === "aprobado" ? 20 : -20}deg)`; el.style.opacity = 0; }
+  if (el) { const r = estado === "aprobado" ? 1 : -1; el.style.transition = "transform .3s, opacity .3s"; el.style.transform = `translateX(${140 * r}%) rotate(${20 * r}deg)`; el.style.opacity = 0; }
   busy = true;
-  try {
-    await db.doc("temas/" + t.id).update({ estado, decidido: new Date().toISOString() });
-    last = t; $("msg").textContent = (estado === "aprobado" ? "Aprobado: " : "Descartado: ") + t.tema;
-  } catch (e) {
-    $("msg").textContent = "No se pudo guardar. Revisa tu conexión e intenta de nuevo.";
-  }
+  try { await setEstado(t.id, estado); last = t; $("msg").textContent = (estado === "aprobado" ? "Aprobado: " : "Descartado: ") + t.tema; }
+  catch (e) { $("msg").textContent = "No se pudo guardar. Revisa tu conexión e intenta de nuevo."; }
   busy = false; render();
 }
 
 async function undo(){
   if (!last || !db || busy) return; busy = true;
-  try { await db.doc("temas/" + last.id).update({ estado: "idea", decidido: null }); $("msg").textContent = "Deshecho: " + last.tema; last = null; }
+  try { await setEstado(last.id, "idea"); $("msg").textContent = "Deshecho: " + last.tema; last = null; }
   catch (e) { $("msg").textContent = "No se pudo deshacer."; }
   busy = false; render();
 }
 
+const slug = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "tema";
+
+async function buscar(){
+  if (!sample || !db || busy) return; busy = true; render();
+  $("bsearch").textContent = "Buscando temas…"; $("smsg").textContent = "Claude está pensando ideas nuevas (unos segundos).";
+  const resumen = all.map(t => `- ${t.tema} [${t.estado}${t.vistas != null ? `, ${t.vistas} vistas, ve ${t.retencion_prom_seg ?? "?"} s, ${t.guardados ?? 0} guardados` : ""}]`).join("\n");
+  const prompt = `Eres el estratega de contenido de Opera Mejor (Perú). Opera Mejor ofrece herramientas e IA para que los negocios operen mejor: ventas, finanzas y caja, precios, inventario y compras, atención al cliente, marketing, personal y procesos. Público: dueños de bodegas, minimarkets, restaurantes, tiendas y pymes peruanas. Videos verticales de 15–22 s, español peruano, tuteando.
+
+Temas ya usados o evaluados (no los repitas, aprende de los resultados y de lo descartado):
+${resumen}
+
+Propón 5 temas NUEVOS y variados (no solo inventario). Cada uno debe abrir con una cifra o pérdida concreta que pare el scroll en 2 segundos.
+Responde SOLO un arreglo JSON de 5 objetos con estas claves:
+"tema" (máx. 5 palabras), "angulo" (una frase con un ejemplo concreto y una cifra en soles), "formato" ("error" | "formula" | "mito", rótalos), "potencial" (entero 1–5, sé exigente), "porque" (una línea que explica el puntaje).`;
+  try {
+    const res = await sample.json(prompt, { modelTier: "default" });
+    const arr = (Array.isArray(res) ? res : res?.temas || []).filter(x => x && x.tema && x.angulo).slice(0, 5);
+    if (!arr.length) throw new Error("vacío");
+    const ids = new Set(all.map(t => t.id)); const now = Date.now();
+    for (let k = 0; k < arr.length; k++) {
+      const x = arr[k]; let id = slug(x.tema), n = 2; while (ids.has(id)) id = slug(x.tema) + "-" + n++; ids.add(id);
+      const pot = Math.max(1, Math.min(5, Math.round(Number(x.potencial) || 3)));
+      await db.doc("temas/" + id).set({ tema: String(x.tema).slice(0, 60), angulo: String(x.angulo).slice(0, 220),
+        formato: ["error", "formula", "mito"].includes(x.formato) ? x.formato : "error", potencial: pot,
+        porque: String(x.porque || "").slice(0, 160), fuente: "sugerido por Claude desde el panel",
+        estado: "idea", creado: new Date(now + k).toISOString() });
+    }
+    $("smsg").textContent = `Listo: ${arr.length} temas nuevos para decidir.`; view = "ideas";
+  } catch (e) {
+    $("smsg").textContent = e?.code === "not_granted" ? "Necesitas permitir que la página consulte a Claude." :
+      e?.code === "rate_limited" ? "Muchas búsquedas seguidas. Intenta en un minuto." : "No se pudieron traer temas. Intenta de nuevo.";
+  }
+  $("bsearch").textContent = "＋ Buscar 5 temas nuevos"; busy = false; render();
+}
+
+document.addEventListener("click", async e => {
+  const tab = e.target.closest(".tabs button"); if (tab) { view = tab.dataset.v; openForm = null; render(); return; }
+  const act = e.target.closest("[data-act]");
+  if (act && db && !busy) { busy = true; try { await setEstado(act.dataset.id, act.dataset.act); } catch (_) {} busy = false; render(); return; }
+  const f = e.target.closest("[data-form]"); if (f) { openForm = f.dataset.form; render(); return; }
+  if (e.target.closest("[data-cancel]")) { openForm = null; render(); }
+});
+document.addEventListener("submit", async e => {
+  const form = e.target.closest("form.res"); if (!form) return; e.preventDefault();
+  const data = { estado: "publicado", medido: new Date().toISOString().slice(0, 10) };
+  new FormData(form).forEach((v, k) => { if (v !== "") data[k] = Number(v); });
+  const t = all.find(x => x.id === form.dataset.id); if (t && !t.fecha_publicacion) data.fecha_publicacion = data.medido;
+  try { await db.doc("temas/" + form.dataset.id).update(data); openForm = null; } catch (_) { alertMsg("No se pudo guardar."); }
+  render();
+});
+function alertMsg(s){ $("smsg").textContent = s; }
 $("bsi").onclick = () => decide("aprobado");
 $("bno").onclick = () => decide("rechazado");
 $("bundo").onclick = undo;
+$("bsearch").onclick = buscar;
 document.addEventListener("keydown", e => {
+  if (view !== "ideas" || e.target.closest("input")) return;
   if (e.key === "ArrowRight") decide("aprobado");
   if (e.key === "ArrowLeft") decide("rechazado");
 });
 
 (async () => {
-  const timer = setTimeout(() => { if (!db) { $("empty").innerHTML = "<h3>Sin conexión</h3><p>Abre esta página con tu cuenta de Claude para aprobar temas.</p>"; } }, 10000);
+  const timer = setTimeout(() => { if (!db) $("empty").innerHTML = "<h3>Sin conexión</h3><p>Abre esta página con tu cuenta de Claude.</p>"; }, 10000);
+  claude.use("sample").then(s => { sample = s; render(); });
   const d = await claude.use("db");
-  if (!d) { clearTimeout(timer); $("empty").innerHTML = "<h3>Sin conexión</h3><p>Abre esta página con tu cuenta de Claude para aprobar temas.</p>"; return; }
+  if (!d) { clearTimeout(timer); $("empty").innerHTML = "<h3>Sin conexión</h3><p>Abre esta página con tu cuenta de Claude.</p>"; return; }
   db = d;
   db.collection("temas").onSnapshot(snap => {
     clearTimeout(timer);
-    const all = snap.docs.map(s => ({ id: s.id, ...s.data() }));
-    ideas = all.filter(t => t.estado === "idea").sort((a, b) => String(a.creado || "").localeCompare(String(b.creado || "")));
-    aprobados = all.filter(t => t.estado === "aprobado").length;
+    all = snap.docs.map(s => ({ id: s.id, ...s.data() }));
+    ideas = all.filter(t => t.estado === "idea").sort((a, b) => (b.potencial || 0) - (a.potencial || 0) || String(a.creado || "").localeCompare(String(b.creado || "")));
     render();
   }, () => { clearTimeout(timer); $("empty").innerHTML = "<h3>Error al cargar</h3><p>Cierra y vuelve a abrir la página.</p>"; });
 })();
