@@ -10,7 +10,7 @@ LEAD, GAP, TAIL = 0.35, 0.28, 0.65
 # chunk start times (scene-local) and scene durations
 CS, SD = [], []
 for i, row in enumerate(CD):
-    t = LEAD; st = []
+    t = 0.05 if i == 0 else LEAD; st = []  # la voz arranca de inmediato en la 1ª escena
     for d in row: st.append(t); t += d + GAP
     CS.append(st); SD.append(t - GAP + TAIL + (1.4 if i == len(CD) - 1 else 0))
 

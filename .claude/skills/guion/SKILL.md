@@ -4,7 +4,7 @@ description: Escribir el guion.json de un video de Opera Mejor a partir de un te
 ---
 # Guion
 
-Escribe `videos/AAAA-MM-DD-<id>/guion.json`: una lista de 4–6 escenas, la última siempre `cierre`. Total hablado: 60–90 palabras (≈30 s).
+Escribe `videos/AAAA-MM-DD-<id>/guion.json`: una lista de 4–6 escenas, la última siempre `cierre`. Total hablado: 40–60 palabras (15–22 s). Videos cortos retienen más.
 
 ## Formatos
 - **error**: el problema → por qué pasa (el error) → la solución con números → cierre.
@@ -33,7 +33,9 @@ Ejemplos completos en `plantilla/ejemplos/`.
 - `cierre` — `pregunta` opcional (por defecto "¿Qué tema sigue?").
 
 ## Reglas
-- La primera frase es el gancho: debe parar el scroll en 2 segundos (pregunta directa, pérdida concreta o dato sorprendente).
+- **Gancho (lo más importante):** la escena 1 abre con la cifra o consecuencia más fuerte del video, no con el contexto. Ej.: "Un cliente perdido te cuesta *dos mil quinientos soles* al año." y luego se explica. El título de la escena 1 también muestra esa cifra/pérdida.
+  Aprendizaje (quiebre de stock, 464 vistas): la gente se iba a los 5.8 s y solo 4.9 % lo vio completo; el número fuerte estaba recién en la escena 3.
+- Nada de relleno: cada frase debe dar un dato nuevo.
 - Los números deben cuadrar: lo que dice la voz = lo que muestran los datos = la cuenta correcta.
 - Ejemplos de bodega peruana (gaseosas, arroz, aceite, Yape, proveedor que tarda). Nada de inglés innecesario.
 
