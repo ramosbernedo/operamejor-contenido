@@ -1,4 +1,4 @@
-<title>Temas Opera Mejor</title>
+<title>Central Opera Mejor</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
@@ -73,6 +73,14 @@ form.res{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 form.res label{display:flex;flex-direction:column;gap:4px;font:600 12px var(--body);color:var(--muted)}
 form.res input{font:500 16px var(--body);padding:9px 10px;border-radius:9px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);min-width:0}
 form.res .full{grid-column:1/-1;display:flex;gap:8px;justify-content:flex-end}
+.vid{width:100%;max-height:70vh;aspect-ratio:9/16;object-fit:contain;background:#000;border-radius:14px;display:block}
+.novid{aspect-ratio:9/16;max-height:240px;border-radius:14px;border:2px dashed var(--line);display:grid;place-items:center;color:var(--muted);font-size:13px;text-align:center;padding:12px}
+details.blk{background:var(--soft);border-radius:12px;padding:10px 12px}
+details.blk summary{cursor:pointer;font:700 14px var(--body);display:flex;justify-content:space-between;align-items:center;gap:8px;list-style:none}
+details.blk summary::-webkit-details-marker{display:none}
+details.blk summary::after{content:"＋";color:var(--muted)} details.blk[open] summary::after{content:"−"}
+.copy{white-space:pre-wrap;font-size:14px;line-height:1.45;margin:10px 0 8px;overflow-wrap:anywhere}
+.vgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
 .note{font-size:13px;color:var(--muted);text-align:center;margin:4px 0 0}
 @media (prefers-reduced-motion:reduce){.c{transition:none!important}}
 </style>
@@ -80,7 +88,7 @@ form.res .full{grid-column:1/-1;display:flex;gap:8px;justify-content:flex-end}
 <div class="app">
   <div class="top">
     <div>
-      <div class="lab">// fábrica de contenido</div>
+      <div class="lab">// central de contenido</div>
       <div class="brand">OPERA <span>MEJOR</span></div>
     </div>
     <div class="stock" aria-live="polite">
@@ -178,10 +186,17 @@ function renderVideos(){
           .map(([k, l]) => `<label for="f-${t.id}-${k}">${l}<input id="f-${t.id}-${k}" name="${k}" type="number" step="any" min="0" inputmode="decimal" value="${t[k] ?? ""}"></label>`).join("")}
         <div class="full"><button type="button" class="btn small ghost" data-cancel>Cancelar</button><button class="btn small">Guardar resultados</button></div>
       </form>` : `<div class="acts"><button class="btn small ${pub ? "ghost" : ""}" data-form="${t.id}">${pub ? "Actualizar resultados" : "Anotar resultados"}</button></div>`;
+    const video = t.video_id ? `<video class="vid" src="/_blob/${esc(t.video_id)}" controls playsinline preload="metadata"></video>
+        <div class="acts"><button class="btn small" data-dl="${t.id}">⬇ Descargar video</button></div>`
+      : `<div class="novid">El video aún no está guardado aquí.</div>`;
+    const blk = (title, text) => text ? `<details class="blk"><summary>${title}</summary><div class="copy">${esc(text)}</div>
+        <div class="acts"><button class="btn small ghost" data-copy="${esc(text)}">Copiar</button></div></details>` : "";
+    const textos = blk("Texto TikTok", t.post_tiktok) + blk("Texto Instagram", t.post_instagram) + blk("Texto LinkedIn", t.post_linkedin)
+      + blk("Portada y hora", [t.portada && "Portada: " + t.portada, t.hora && "Publicar: " + t.hora].filter(Boolean).join("\n")) + blk("Guion (lo que dice la voz)", t.guion_voz);
     return `<article class="row">
       <div class="chips"><span class="pill ${t.estado}">${t.estado === "revisado" ? "listo para publicar" : t.estado}</span>
-        <span class="lab">${esc(fecha)}${t.cta ? " · llamado: " + esc(CTA[t.cta] || t.cta) : ""}</span></div>
-      <h4>${esc(t.tema)}</h4>${m}${form}</article>`;
+        <span class="lab">${esc(fecha)}${t.duracion_seg ? " · " + Math.round(t.duracion_seg) + " s" : ""}${t.cta ? " · llamado: " + esc(CTA[t.cta] || t.cta) : ""}</span></div>
+      <h4>${esc(t.tema)}</h4><div class="vgrid">${video}${textos}</div>${m}${form}</article>`;
   }).join("");
 }
 
@@ -284,6 +299,20 @@ document.addEventListener("click", async e => {
   const tab = e.target.closest(".tabs button"); if (tab) { view = tab.dataset.v; openForm = null; render(); return; }
   const act = e.target.closest("[data-act]");
   if (act && db && !busy) { busy = true; try { await setEstado(act.dataset.id, act.dataset.act); } catch (_) {} busy = false; render(); return; }
+  const cp = e.target.closest("[data-copy]");
+  if (cp) { const txt = cp.dataset.copy;
+    try { await navigator.clipboard.writeText(txt); cp.textContent = "¡Copiado!"; }
+    catch (_) { const r = document.createRange(); r.selectNodeContents(cp.closest("details").querySelector(".copy")); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); cp.textContent = "Texto seleccionado"; }
+    setTimeout(() => cp.textContent = "Copiar", 1800); return; }
+  const dl = e.target.closest("[data-dl]");
+  if (dl) { const t = all.find(x => x.id === dl.dataset.dl); dl.disabled = true; dl.textContent = "Preparando…";
+    try {
+      const downloads = await claude.use("downloads"); if (!downloads) throw { code: "unavailable" };
+      const blob = await (await fetch("/_blob/" + t.video_id)).blob();
+      await downloads.save({ filename: (t.carpeta || t.id).split("/").pop() + ".mp4", data: blob });
+      dl.textContent = "✓ Descargado";
+    } catch (err) { dl.textContent = err?.code === "declined" ? "Descarga cancelada" : "No se pudo descargar"; }
+    setTimeout(() => { dl.disabled = false; dl.textContent = "⬇ Descargar video"; }, 2500); return; }
   const f = e.target.closest("[data-form]"); if (f) { openForm = f.dataset.form; render(); return; }
   if (e.target.closest("[data-cancel]")) { openForm = null; render(); }
 });
