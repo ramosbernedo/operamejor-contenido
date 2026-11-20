@@ -36,6 +36,9 @@ Ejemplos completos en `plantilla/ejemplos/`.
 - **Gancho (lo más importante):** la escena 1 abre con la cifra o consecuencia más fuerte del video, no con el contexto. Ej.: "Un cliente perdido te cuesta *dos mil quinientos soles* al año." y luego se explica. El título de la escena 1 también muestra esa cifra/pérdida.
   Aprendizaje (quiebre de stock, 464 vistas): la gente se iba a los 5.8 s y solo 4.9 % lo vio completo; el número fuerte estaba recién en la escena 3.
 - Nada de relleno: cada frase debe dar un dato nuevo.
+- **Contexto antes de la cuenta:** después del gancho, una frase que cuente la situación (quién, qué pasó). Sin eso la cuenta no se entiende.
+- **La solución sale de los mismos números del video** y explica su porqué (ej.: "vendes 4 por semana y vence en 2 → lleva 8"), nunca una regla suelta.
+- Prueba final: ¿un bodeguero que no sabe nada del tema entiende el video a la primera? Si no, falta contexto.
 - Los números deben cuadrar: lo que dice la voz = lo que muestran los datos = la cuenta correcta.
 - Ejemplos de bodega peruana (gaseosas, arroz, aceite, Yape, proveedor que tarda). Nada de inglés innecesario.
 

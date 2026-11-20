@@ -1,20 +1,21 @@
 ## TikTok
 Esa oferta de 10 cajas te hizo perder S/ 40 😬
-Ahorras S/ 50, se vencen 2 cajas (S/ 90). ¿Quieres ayuda con tus compras? Escríbenos, link en la bio.
-#bodegasperu #emprendedoresperu #inventarios #negociosperu
+Ahorraste S/ 50, pero vendes 4 por semana y vencen en 2 semanas: se vencen 2 cajas (S/ 90). Lleva solo 8. ¿Quieres ayuda? Escríbenos, link en la bio.
+#bodegasperu #emprendedoresperu #negociosperu #pymesperu
 
 ## Instagram (Reels)
 Esa oferta de 10 cajas te hizo perder S/ 40.
-Realidad: ahorras S/ 50, se vencen 2 cajas (S/ 90)… pierdes S/ 40. Y tu plata se queda parada.
-Compra lo que vendes en 2 semanas. ¿Quieres ayuda? Escríbenos, link en la bio.
-#bodegasperu #emprendedoresperu #inventarios #minimarket #pymesperu #negociosperu
+El proveedor te dio descuento y ahorraste S/ 50. Pero vendes 4 cajas por semana y vencen en 2 semanas: 2 cajas a la basura (S/ 90).
+La regla: lo que vendes por semana × semanas antes de que venza = lo máximo que debes llevar.
+¿Quieres ayuda con tus compras? Escríbenos, link en la bio.
+#bodegasperu #emprendedoresperu #negociosperu #minimarket #pymesperu #compras
 
 ## LinkedIn
-Las ofertas por volumen parecen ahorro, pero no siempre lo son.
-Ejemplo: ahorras S/ 50 por llevar 10 cajas, pero 2 se vencen (S/ 90). Resultado: −S/ 40, más capital inmovilizado por meses.
-Antes de aceptar una oferta, compara el ahorro con tu ritmo real de venta.
+Un descuento por volumen puede salir caro.
+Ejemplo: ahorras S/ 50 por llevar 10 cajas, pero vendes 4 por semana y el producto vence en 2 semanas. Se pierden 2 cajas (S/ 90): resultado −S/ 40.
+Regla simple: compra como máximo lo que vendes antes del vencimiento (4 × 2 = 8 cajas).
 ¿Cómo evalúan ustedes las ofertas de proveedores?
-#SupplyChain #Inventarios #Pymes
+#Pymes #GestiónDeNegocios #Compras
 
 ## Portada
 Esta oferta te costó S/ 40
