@@ -1,15 +1,12 @@
 [
- {"label":"","title":[""],"tipo":"impacto","datos":{"cifra":"S/ 300","sub":"de tu caja, en la calle cada mes"},
+ {"label":"","title":[""],"tipo":"impacto","datos":{"cifra":"S/ 300","sub":"de tu plata, fiada a vecinos"},
   "chunks":["Tienes *trescientos soles* en la calle.","Es tu fiado."]},
  {"label":"// 01 · la cuenta","title":["15 VECINOS","*TE DEBEN*"],"n":1,"tipo":"formula",
-  "datos":{"terminos":[["15","vecinos"],"×",["20","soles"]],"resultado":["300","al mes"]},
-  "chunks":["Quince vecinos, veinte soles cada uno."]},
- {"label":"// 02 · el problema","title":["NO PUEDES","*REPONER*"],"n":2,"tipo":"texto",
-  "datos":{"grande":"Esa plata no compra mercadería.","chico":"y te quedas sin stock"},"sello":{"texto":"SIN STOCK"},
-  "chunks":["Y con esa plata no puedes *reponer*."]},
- {"label":"// 03 · la solución","title":["PON UN","*LÍMITE*"],"n":3,"tipo":"texto",
-  "datos":{"grande":"Máximo S/ 50 por vecino.","chico":"anota todo y cobra cada semana"},
-  "chunks":["Pon un *límite*, y cobra cada semana."]},
+  "datos":{"terminos":[["15","vecinos"],"×",["20","soles"]],"resultado":["300","te deben"]},
+  "chunks":["Quince vecinos te deben veinte soles cada uno.","Y con esa plata no puedes *reponer*."]},
+ {"label":"// 02 · qué hacer","title":["3 REGLAS","*DEL FIADO*"],"n":2,"tipo":"pasos",
+  "datos":{"pasos":["Anota fecha, nombre y monto","Máximo S/ 50 por vecino","Cobra cada sábado"]},"sello":{"texto":"SIN PAGO, SIN FIADO","tam":60,"x":330},
+  "chunks":["Uno: anota fecha, nombre y monto.","Dos: máximo *cincuenta soles* por vecino.","Tres: cobra cada *sábado*.","Si no paga, no hay más *fiado*."]},
  {"label":"// opera mejor","title":["OPERA","*MEJOR*"],"tipo":"cierre","datos":{"pregunta":"¿Cuánto te deben?"},
   "chunks":["¿Cuánto te deben? *Coméntalo*."]}
 ]

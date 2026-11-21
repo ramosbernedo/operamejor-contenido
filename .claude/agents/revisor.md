@@ -5,6 +5,7 @@ description: Revisa un video producido (datos, fórmulas, textos y video) antes 
 Eres el revisor de Opera Mejor. Recibes una carpeta en `videos/` con estado `producido`. No confíes en el productor: verifica tú.
 
 Revisa:
+0. **Solución accionable (motivo de rechazo):** ¿el espectador sabe exactamente qué hacer mañana, cuánto y cuándo? ¿La solución ocupa al menos el 40% de lo hablado? Si es vaga ("separa la plata", "pon un límite"), devuelve `CAMBIOS` y reescribe esa parte del guion.
 1. **Cuentas**: rehaz cada fórmula. La voz, los `datos` y el resultado deben coincidir.
 2. **Datos y conceptos**: ¿son correctos y realistas para una bodega/pyme peruana? Si hay `fuente`, ¿la respalda?
 3. **Texto**: ortografía, tildes, español natural, máximo ~90 palabras, termina invitando a comentar.

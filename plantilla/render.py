@@ -406,7 +406,23 @@ def sc_impacto(c, t, i):
         paste(c, txt(D_.get("sub", ""), INTER(54, "Bold"), INK), W / 2, 1170 + 20 * (1 - q), al=q)
 def ev_impacto(i): return [(0, "whoosh", .5), (.03, "thud", 1.0)] + ([(CS[i][-1] + .1, "thud", .6)] if last(i) else [])
 
-TIPOS = {"impacto": (sc_impacto, ev_impacto), "lista": (sc_lista, ev_lista), "barras": (sc_barras, ev_barras), "curva": (sc_curva, ev_curva),
+# pasos: la solución en pasos concretos, uno por frase. datos: pasos (máx. 4)
+def sc_pasos(c, t, i):
+    ps = dat(i).get("pasos", []); n = len(ps); h = 130 + 120 * n
+    if base_card(c, t, h) < .4: return
+    d = ImageDraw.Draw(c); f = INTER(46, "SemiBold")
+    for k, s_ in enumerate(ps):
+        t0 = CS[i][min(k, last(i))] - .05
+        if t < t0: continue
+        q = eo((t - t0) / .3); y = CY0 + 75 + 120 * k + 20 * (1 - q)
+        im = Image.new("RGBA", (86, 86), (0, 0, 0, 0)); ImageDraw.Draw(im).ellipse([0, 0, 85, 85], fill=RED)
+        fn = ANTON(54); ImageDraw.Draw(im).text((43 - fn.getlength(str(k + 1)) / 2, 6), str(k + 1), font=fn, fill=WHITE)
+        paste(c, im, 160, y + 40, sc=bo((t - t0) / .3), al=q)
+        lines = wrap(s_, f, 700)
+        for li, l in enumerate(lines[:2]): d.text((230, y + 8 + li * 54 - (27 if len(lines) > 1 else 0)), l, font=f, fill=INK)
+def ev_pasos(i): return [(CS[i][min(k, last(i))], "pop", .45, 800 + 120 * k) for k in range(len(dat(i).get("pasos", [])))]
+
+TIPOS = {"pasos": (sc_pasos, ev_pasos), "impacto": (sc_impacto, ev_impacto), "lista": (sc_lista, ev_lista), "barras": (sc_barras, ev_barras), "curva": (sc_curva, ev_curva),
          "formula": (sc_formula, ev_formula), "mito": (sc_mito, ev_mito), "texto": (sc_texto, ev_texto), "cierre": (sc_cierre, ev_cierre)}
 
 def sello_t(i):
