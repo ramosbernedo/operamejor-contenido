@@ -1,5 +1,5 @@
 Resultado: APROBADO
 
-- Solución accionable (qué, cuánto, cuándo) y >= 40% del video.
-- Cuentas verificadas (500x0.85=425, 500-425=75; 15x20=300).
-- Voz verificada frase por frase.
+- Estrategia completa: objetivo (clientes fieles sin perder caja), criterio (+S/ 30 semanales), pasos y meta medible (fiado <= 10% de ventas).
+- Cuentas: 6000 x 10% = 600.
+- Voz verificada.

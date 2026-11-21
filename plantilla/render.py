@@ -387,10 +387,11 @@ def sc_cierre(c, t, i):
     tq = cs[last(i)]
     if t > tq:
         q = bo((t - tq) / 0.4)
-        b = Image.new("RGBA", (420, 150), (0, 0, 0, 0)); bd = ImageDraw.Draw(b)
-        bd.rounded_rectangle([0, 0, 419, 120], 30, fill=INK); bd.polygon([(60, 118), (110, 118), (60, 150)], fill=INK)
-        bd.text((40, 30), dat(i).get("pregunta", "¿Qué tema sigue?"), font=INTER(40, "SemiBold"), fill=WHITE)
-        paste(c, b, 300, 1480, sc=q)
+        qt = dat(i).get("pregunta", "¿Qué tema sigue?"); bw = int(INTER(40, "SemiBold").getlength(qt)) + 80
+        b = Image.new("RGBA", (bw, 150), (0, 0, 0, 0)); bd = ImageDraw.Draw(b)
+        bd.rounded_rectangle([0, 0, bw - 1, 120], 30, fill=INK); bd.polygon([(60, 118), (110, 118), (60, 150)], fill=INK)
+        bd.text((40, 30), qt, font=INTER(40, "SemiBold"), fill=WHITE)
+        paste(c, b, 90 + bw / 2, 1480, sc=q)
 def ev_cierre(i): return [(CS[i][last(i)], "pop", .4, 1100), (CS[i][last(i)] + .8, "chime", .45)]
 
 # impacto: primer segundo a pantalla completa, solo la cifra gigante. datos: cifra, sub
