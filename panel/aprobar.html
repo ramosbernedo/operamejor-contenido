@@ -186,7 +186,7 @@ function renderVideos(){
           .map(([k, l]) => `<label for="f-${t.id}-${k}">${l}<input id="f-${t.id}-${k}" name="${k}" type="number" step="any" min="0" inputmode="decimal" value="${t[k] ?? ""}"></label>`).join("")}
         <div class="full"><button type="button" class="btn small ghost" data-cancel>Cancelar</button><button class="btn small">Guardar resultados</button></div>
       </form>` : `<div class="acts"><button class="btn small ${pub ? "ghost" : ""}" data-form="${t.id}">${pub ? "Actualizar resultados" : "Anotar resultados"}</button></div>`;
-    const video = t.video_id ? `<video class="vid" src="/_blob/${esc(t.video_id)}" controls playsinline preload="metadata"></video>
+    const video = t.video_id ? `<video class="vid" src="/_blob/${esc(t.video_id)}"${t.portada_id ? ` poster="/_blob/${esc(t.portada_id)}"` : ""} controls playsinline preload="metadata"></video>
         <div class="acts"><button class="btn small" data-dl="${t.id}">⬇ Descargar video</button></div>`
       : `<div class="novid">El video aún no está guardado aquí.</div>`;
     const blk = (title, text) => text ? `<details class="blk"><summary>${title}</summary><div class="copy">${esc(text)}</div>
