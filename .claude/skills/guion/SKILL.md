@@ -39,6 +39,7 @@ Ejemplos de escenas en `plantilla/ejemplos/`.
 - `cierre` — `pregunta` opcional (por defecto "¿Qué tema sigue?").
 
 ## Reglas
+- **Nada de cifras inventadas como reglas.** Un tope o porcentaje debe salir de una fuente (anótala en `fuente` del tema) o de una cuenta con los números del propio negocio (ej. "tu fiado no debe pasar tu ganancia de una semana"). Los montos de ejemplo se dicen como ejemplo.
 - **Gancho (lo más importante):** la escena 1 abre con la cifra o consecuencia más fuerte del video, no con el contexto. Ej.: "Un cliente perdido te cuesta *dos mil quinientos soles* al año." y luego se explica. El título de la escena 1 también muestra esa cifra/pérdida.
   Aprendizaje (quiebre de stock, 464 vistas): la gente se iba a los 5.8 s y solo 4.9 % lo vio completo; el número fuerte estaba recién en la escena 3.
 - Nada de relleno: cada frase debe dar un dato nuevo.

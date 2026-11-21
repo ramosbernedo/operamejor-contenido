@@ -20,7 +20,7 @@ Siempre debe haber **7 temas aprobados**. Cada mañana, antes de producir: si ha
 ## Flujo diario (7:30 am, video para hoy)
 1. Revisar stock de temas (arriba).
 2. Agente **produccion**: toma el aprobado más antiguo → guion → video → post.
-3. Agente **revisor**: revisa y corrige.
+3. Agente **revisor** (obligatorio, siempre como agente aparte, nunca autorrevisión): revisa origen de cada cifra, solución accionable, cuentas, texto y video. Solo él marca `revisado`; sin su aprobación el video no va a la central.
 
 Carpeta de cada video: `videos/AAAA-MM-DD-id/` con guion.json, post.md, revision.md. Los MP4 y WAV no se suben a git.
 Al terminar, haz commit y push a `main`.
