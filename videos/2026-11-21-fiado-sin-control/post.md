@@ -1,27 +1,29 @@
 ## TikTok
-Tu fiado nunca debe pasar el 10% de lo que vendes 📊
-Fiado inteligente: 1) solo a quien compra +S/ 30 a la semana 2) tope = lo que compra en una semana 3) cobra cada sábado. Vendes S/ 6,000 al mes → fiado máximo S/ 600. ¿Lo armamos para tu negocio? Escríbenos por WhatsApp, link en la bio.
+Tu fiado nunca debe pasar tu ganancia de una semana 📊
+Si fías más, prestas la plata del proveedor. Ejemplo: vendes S/ 1,500 a la semana y ganas 15% → tu tope es S/ 225. Fía solo a clientes fijos, anota y suma cada noche y cobra cada sábado. ¿Lo armamos para tu negocio? Escríbenos por WhatsApp, link en la bio.
 #bodegasperu #emprendedoresperu #negociosperu #pymesperu
 
 ## Instagram (Reels)
-El fiado no es el problema: fiar sin estrategia, sí.
-Bien usado, el fiado te trae clientes fieles. Mal usado, te deja sin caja.
+Tu fiado nunca debe pasar tu ganancia de una semana.
+¿Por qué? Porque cobras cada sábado: lo que fíes en la semana debe salir de tu ganancia, no de la plata para reponer.
+Calcula tu tope: venta semanal × tu margen. Ejemplo: S/ 1,500 × 15% = S/ 225.
 El sistema del fiado inteligente:
-1) Fía solo a quien te compra más de S/ 30 a la semana.
-2) Tope: lo que ese cliente compra en una semana.
+1) Fía solo a clientes fijos.
+2) Anota cada fiado y suma el total cada noche.
 3) Cobra cada sábado.
-Tu meta: fiado total ≤ 10% de tus ventas del mes (vendes S/ 6,000 → máximo S/ 600). Si te pasas, cierras el fiado hasta bajar.
+Si llegas al tope, no fías más hasta cobrar.
 ¿Lo armamos para tu negocio? Escríbenos por WhatsApp, link en la bio.
 #bodegasperu #emprendedoresperu #negociosperu #minimarket #pymesperu #fiado
 
 ## LinkedIn
-El crédito informal ("fiado") puede ser una herramienta de fidelización o un drenaje de caja. La diferencia es tener una política.
-Una política simple para bodegas: crédito solo a clientes recurrentes (más de S/ 30 semanales), límite igual a una semana de compras, cobro semanal fijo y un tope global del 10% de las ventas mensuales como indicador de control.
+El crédito informal ("fiado") debería financiarse con la ganancia del negocio, no con el dinero de reposición.
+Regla práctica: el saldo total fiado no debería superar la ganancia de una semana (venta semanal × margen). Con S/ 1,500 semanales y 15% de margen, el tope es S/ 225.
+Complementos simples: crédito solo a clientes recurrentes, registro de cada deuda y cobro semanal fijo.
 En Opera Mejor ayudamos a negocios a implementar este tipo de sistemas.
 #Pymes #Finanzas #GestiónDeNegocios
 
 ## Portada
-Fiado: máximo 10%
+Tu tope de fiado
 
 ## Hora sugerida
 TikTok e Instagram: 7 pm (o 12:30 pm). LinkedIn: 8 am, de martes a jueves.

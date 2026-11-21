@@ -1,12 +1,92 @@
 [
- {"label":"","title":[""],"tipo":"impacto","datos":{"cifra":"10%","sub":"el tope de tu fiado"},
-  "chunks":["Tu fiado nunca debe pasar el *diez por ciento* de lo que vendes.","Así el fiado te trae clientes fieles, sin dejarte sin caja."]},
- {"label":"// 01 · el sistema","title":["FIADO","*INTELIGENTE*"],"n":1,"tipo":"pasos",
-  "datos":{"pasos":["Solo a quien compra +S/ 30 a la semana","Tope: lo que compra en una semana","Cobra cada sábado"]},
-  "chunks":["Uno: fía solo a quien te compra más de *treinta soles* a la semana.","Dos: como máximo, lo que compra en *una semana*.","Tres: cobras cada *sábado*."]},
- {"label":"// 02 · tu meta","title":["MIDE TU","*TOPE*"],"n":2,"tipo":"formula",
-  "datos":{"terminos":[["6000","vendes al mes"],"×",["10%","tope"]],"resultado":["600","fiado máx."]},"sello":{"texto":"MÍDELO"},
-  "chunks":["Si vendes seis mil al mes, tu fiado máximo es *seiscientos*.","Si te pasas, cierras el fiado hasta *bajar*."]},
- {"label":"// opera mejor","title":["OPERA","*MEJOR*"],"tipo":"cierre","datos":{"pregunta":"Escríbenos por WhatsApp"},
-  "chunks":["¿Lo armamos para tu negocio? *Escríbenos*."]}
+ {
+  "label": "",
+  "title": [
+   ""
+  ],
+  "tipo": "impacto",
+  "datos": {
+   "cifra": "1 SEMANA",
+   "sub": "de ganancia: tu tope de fiado"
+  },
+  "chunks": [
+   "Tu fiado no debe pasar tu *ganancia* semanal.",
+   "Cobras cada sábado: más que eso sale de la plata del *proveedor*."
+  ]
+ },
+ {
+  "label": "// 01 · tu tope",
+  "title": [
+   "CALCULA",
+   "*TU TOPE*"
+  ],
+  "n": 1,
+  "tipo": "formula",
+  "datos": {
+   "terminos": [
+    [
+     "1500",
+     "soles/semana"
+    ],
+    "×",
+    [
+     "15%",
+     "ganas"
+    ]
+   ],
+   "resultado": [
+    "225",
+    "soles: tope"
+   ]
+  },
+  "sello": {
+   "texto": "EJEMPLO",
+   "tam": 60
+  },
+  "chunks": [
+   "Ejemplo: vendes mil quinientos y ganas *quince por ciento*.",
+   "Tu tope: *doscientos veinticinco* soles."
+  ]
+ },
+ {
+  "label": "// 02 · el sistema",
+  "title": [
+   "FIADO",
+   "*INTELIGENTE*"
+  ],
+  "n": 2,
+  "tipo": "pasos",
+  "datos": {
+   "pasos": [
+    "Solo a clientes fijos",
+    "Anota y suma cada noche",
+    "Cobra cada sábado"
+   ]
+  },
+  "sello": {
+   "texto": "TOPE = STOP",
+   "tam": 60,
+   "x": 330
+  },
+  "chunks": [
+   "Uno: fía solo a clientes *fijos*.",
+   "Dos: anota cada fiado y súmalo cada *noche*.",
+   "Tres: cobra cada *sábado*.",
+   "Si llegas al tope, no fías más hasta *cobrar*."
+  ]
+ },
+ {
+  "label": "// opera mejor",
+  "title": [
+   "OPERA",
+   "*MEJOR*"
+  ],
+  "tipo": "cierre",
+  "datos": {
+   "pregunta": "Escríbenos por WhatsApp"
+  },
+  "chunks": [
+   "¿Lo armamos para tu negocio? *Escríbenos*."
+  ]
+ }
 ]
