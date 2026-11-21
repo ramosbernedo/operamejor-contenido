@@ -6,7 +6,7 @@ import soundfile as sf
 W, H, FPS = 1080, 1920, 30
 D = os.getcwd(); F = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts")
 S = json.load(open(f"{D}/script.json")); CD = json.load(open(f"{D}/chunkdur.json"))
-LEAD, GAP, TAIL = 0.35, 0.28, 0.65
+LEAD, GAP, TAIL = 0.15, 0.15, 0.35  # ritmo rápido: escenas de 2–3 s
 # chunk start times (scene-local) and scene durations
 CS, SD = [], []
 for i, row in enumerate(CD):
@@ -393,7 +393,20 @@ def sc_cierre(c, t, i):
         paste(c, b, 300, 1480, sc=q)
 def ev_cierre(i): return [(CS[i][last(i)], "pop", .4, 1100), (CS[i][last(i)] + .8, "chime", .45)]
 
-TIPOS = {"lista": (sc_lista, ev_lista), "barras": (sc_barras, ev_barras), "curva": (sc_curva, ev_curva),
+# impacto: primer segundo a pantalla completa, solo la cifra gigante. datos: cifra, sub
+def sc_impacto(c, t, i):
+    D_ = dat(i); s_ = D_.get("cifra", ""); f = ANTON(340)
+    while f.getlength(s_) > 960 and f.size > 120: f = ANTON(f.size - 20)
+    p = clamp(t / .28); shake = 10 * math.sin(t * 70) * max(0, 1 - t / .45)
+    pulse = 1 + .07 * max(0, 1 - abs(t - CS[i][-1] - .1) / .15) if last(i) else 1
+    paste(c, txt(s_, f, RED), W / 2 + shake, 900, sc=(1 + 1.6 * (1 - eo(p))) * pulse, al=clamp(p * 3))
+    if t > .3:
+        q = eo((t - .3) / .3); d = ImageDraw.Draw(c)
+        d.rectangle([W / 2 - 300 * q, 1080, W / 2 + 300 * q, 1092], fill=INK)
+        paste(c, txt(D_.get("sub", ""), INTER(54, "Bold"), INK), W / 2, 1170 + 20 * (1 - q), al=q)
+def ev_impacto(i): return [(0, "whoosh", .5), (.03, "thud", 1.0)] + ([(CS[i][-1] + .1, "thud", .6)] if last(i) else [])
+
+TIPOS = {"impacto": (sc_impacto, ev_impacto), "lista": (sc_lista, ev_lista), "barras": (sc_barras, ev_barras), "curva": (sc_curva, ev_curva),
          "formula": (sc_formula, ev_formula), "mito": (sc_mito, ev_mito), "texto": (sc_texto, ev_texto), "cierre": (sc_cierre, ev_cierre)}
 
 def sello_t(i):
@@ -414,10 +427,11 @@ STARTS = list(np.cumsum([0] + SD[:-1]))
 
 def frame(i, t):
     c = BG.copy(); tipo = S[i].get("tipo", "texto")
-    header(c, i, t); TIPOS[tipo][0](c, t, i)
+    if tipo != "impacto": header(c, i, t)
+    TIPOS[tipo][0](c, t, i)
     s = S[i].get("sello"); ts = sello_t(i)
     if s: stamp(c, s["texto"], s.get("x", 330), 1580, ts, t, rot=s.get("giro", -8), size=s.get("tam", 80))
-    mascot(c, t, STARTS[i] + t, wave=(tipo == "cierre"), point=(tipo != "cierre"))
+    if tipo != "impacto": mascot(c, t, STARTS[i] + t, wave=(tipo == "cierre"), point=(tipo != "cierre"))
     draw_caption(c, i, t)
     paste(c, txt("@operamejor", MONO(24, "Bold"), (170, 160, 150)), 70, 1860, anchor="l")
     if i == len(S) - 1 and t > SD[i] - .5:
@@ -447,5 +461,6 @@ if __name__ == "__main__":
     if sys.argv[1] == "preview":  # una imagen por escena -> sheet.png
         ims = [frame(i, SD[i] - (1.0 if i == len(S) - 1 else .3)).convert("RGB").resize((360, 640)) for i in range(len(S))]
         sh = Image.new("RGB", (360 * len(ims), 640)); [sh.paste(im, (360 * k, 0)) for k, im in enumerate(ims)]; sh.save(f"{D}/sheet.png")
+        frame(0, min(.8, SD[0] - .1)).convert("RGB").save(f"{D}/portada.png")  # cuadro del gancho para la portada
     else:
         for i in (range(len(S)) if sys.argv[1] == "all" else map(int, sys.argv[1].split(","))): render(i)

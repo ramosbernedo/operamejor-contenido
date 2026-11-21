@@ -27,5 +27,5 @@ OM_SEED=$(basename "$OUT") python3 "$P/audio.py"
 python3 "$P/render.py" all
 ls scene_*.mp4 | sort -V | sed "s/.*/file '&'/" > list.txt
 ffmpeg -v error -y -f concat -safe 0 -i list.txt -i mix.wav -c:v copy -c:a aac -b:a 192k -shortest "$OUT/video.mp4"
-cp sheet.png "$OUT/preview.png"
+cp sheet.png "$OUT/preview.png"; cp portada.png "$OUT/portada.png"
 echo "Listo: $OUT/video.mp4"

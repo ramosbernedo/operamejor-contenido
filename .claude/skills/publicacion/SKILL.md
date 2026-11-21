@@ -14,7 +14,7 @@ Igual que TikTok, 2–4 líneas, 5–8 hashtags al final.
 ## LinkedIn
 4–6 líneas más profesionales: el problema, el dato, la solución, invitación a conversar. 3 hashtags.
 ## Portada
-Texto de portada (máx. 5 palabras).
+Texto de portada (máx. 5 palabras). Recuerda al usuario: en TikTok elegir como portada el **primer cuadro** (la cifra gigante); `portada.png` queda en la carpeta.
 ## Hora sugerida
 TikTok e Instagram: 7 pm (o 12:30 pm). LinkedIn: 8 am, de martes a jueves. Ajustar cuando haya datos de qué funciona mejor.
 ```

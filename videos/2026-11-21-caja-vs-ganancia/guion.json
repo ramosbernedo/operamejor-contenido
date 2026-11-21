@@ -1,0 +1,15 @@
+[
+ {"label":"","title":[""],"tipo":"impacto","datos":{"cifra":"S/ 75","sub":"ganaste de S/ 500 vendidos"},
+  "chunks":["Vendiste quinientos soles hoy.","Pero ganaste solo *setenta y cinco*."]},
+ {"label":"// 01 · el error","title":["LA CAJA","*ENGAÑA*"],"n":1,"tipo":"texto",
+  "datos":{"grande":"Caja no es ganancia.","chico":"casi todo es plata del proveedor"},
+  "chunks":["La caja *no* es tu ganancia."]},
+ {"label":"// 02 · la cuenta","title":["HAGAMOS LA","*CUENTA*"],"n":2,"tipo":"formula",
+  "datos":{"terminos":[["500","vendiste"],"−",["425","mercadería"]],"resultado":["75","ganas"]},
+  "chunks":["Quinientos, menos cuatrocientos veinticinco de mercadería,","te quedan *setenta y cinco*."]},
+ {"label":"// 03 · la solución","title":["SEPARA","*LA PLATA*"],"n":3,"tipo":"texto",
+  "datos":{"grande":"Cada noche, separa lo del proveedor.","chico":"lo que queda es tu ganancia real"},"sello":{"texto":"CLAVE"},
+  "chunks":["Cada noche, separa la plata del *proveedor*."]},
+ {"label":"// opera mejor","title":["OPERA","*MEJOR*"],"tipo":"cierre","datos":{"pregunta":"Link en la bio"},
+  "chunks":["¿Quieres ayuda? *Escríbenos*."]}
+]

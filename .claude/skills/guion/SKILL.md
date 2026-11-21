@@ -20,10 +20,12 @@ Ejemplos completos en `plantilla/ejemplos/`.
  "chunks": ["¿Tu bodega se queda sin *gaseosas*", "justo el *sábado*?"]}
 ```
 - `title`: 1–2 líneas en MAYÚSCULAS, máx. ~11 letras por línea. Lo que va entre `*` sale en rojo (solo al final de la línea).
+- **Ritmo:** 1–2 frases por escena (cada escena dura 2–3 s). 4–5 escenas en total.
 - `chunks`: 1–3 frases cortas (máx. ~8 palabras) que dice la voz. Una palabra clave entre `*` por frase. **Escribe los números en letras** ("setenta y cinco") para que la voz los lea bien.
 - `n`: número de escena (no en el cierre). `sello` (opcional): 1–2 palabras; `frase` = índice del chunk tras el cual aparece (por defecto el último).
 
 ## Tipos y sus `datos`
+- `impacto` — **siempre la escena 1**: la cifra del gancho gigante a pantalla completa, sin título, etiqueta ni mascota. `cifra` (corta, ej. "S/ 300"), `sub` (máx. 6 palabras). `label` y `title` vacíos (`""`, `[""]`), sin `n`. 1–2 frases.
 - `lista` — algo que se acaba: `inicio`, `fin`, `icono` ("botella" | "caja"), `etiqueta`.
 - `barras` — comparar: `etiquetas`, `valores` (máx. 7), `destacar` (índice), `promedio`, `nota`.
 - `curva` — stock que baja a cero: `inicio`, `dias_hasta_cero`, `dias`, `etiqueta`, `llegada`.
