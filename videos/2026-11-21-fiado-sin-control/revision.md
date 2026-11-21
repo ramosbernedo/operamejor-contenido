@@ -1,4 +1,5 @@
 Resultado: APROBADO
 
-- Cuentas verificadas (500−425=75; 15×20=300).
-- Escena 1 de impacto y cortes de 2–3 s.
+- Solución accionable (qué, cuánto, cuándo) y >= 40% del video.
+- Cuentas verificadas (500x0.85=425, 500-425=75; 15x20=300).
+- Voz verificada frase por frase.
