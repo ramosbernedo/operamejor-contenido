@@ -6,12 +6,15 @@ description: Escribir el guion.json de un video de Opera Mejor a partir de un te
 
 Escribe `videos/AAAA-MM-DD-<id>/guion.json`: una lista de 4–6 escenas, la última siempre `cierre`. Total hablado: 40–60 palabras (15–22 s). Videos cortos retienen más.
 
-## Formatos
-- **error**: el problema → por qué pasa (el error) → la solución con números → cierre.
-- **formula**: el problema → los datos → la fórmula paso a paso (`formula`) → cierre.
-- **mito**: el mito (`mito`) → por qué es falso → qué hacer → cierre.
+## Formatos: estrategias, no consejos
+El objetivo es **vender**: cada video muestra un **método** (con objetivo, criterio y meta medible) que da ganas de implementarlo con ayuda de Opera Mejor. Un consejo suelto ("cobra cada sábado") no basta.
+- **sistema** — un método con nombre que se recuerda ("fiado inteligente", "regla del 85"): gancho con la cifra → objetivo de negocio → pasos (`pasos`) → **meta medible** (un número que el dueño puede controlar, ej. "fiado ≤ 10% de tus ventas") → cierre.
+- **decision** — "¿Conviene X o Y?": gancho → el criterio para decidir según su negocio (con números) → qué elegir en cada caso → cierre.
+- **antes_despues** — un ejemplo con números de cómo cambia el negocio al aplicar la estrategia (siempre presentado como ejemplo, nunca como cliente real) → qué se hizo, paso a paso → cierre.
 
-Ejemplos completos en `plantilla/ejemplos/`.
+Toda estrategia responde: **¿para qué?** (objetivo), **¿a quién o cuándo?** (criterio), **¿qué hacer?** (pasos) y **¿cómo sé que funciona?** (meta).
+
+Ejemplos de escenas en `plantilla/ejemplos/`.
 
 ## Cada escena
 ```json
@@ -48,9 +51,9 @@ Ejemplos completos en `plantilla/ejemplos/`.
 - Ejemplos de bodega peruana (gaseosas, arroz, aceite, Yape, proveedor que tarda). Nada de inglés innecesario.
 
 ## Llamado a la acción (prueba de qué funciona)
-El `cierre` rota entre 3 llamados. Mira en el panel el `cta` de los últimos temas producidos y usa el que toque:
-- `comentar` — voz: "¿Te pasó? *Coméntalo*." · `pregunta`: "¿Te pasó?"
-- `calculadora` — voz: "Calcula tu stock gratis en *OperaMejor.pe*." · `pregunta`: "OperaMejor.pe"
-- `whatsapp` — voz: "¿Quieres ayuda? *Escríbenos*." · `pregunta`: "Link en la bio"
+El `cierre` rota entre los llamados (usa `asesoria` al menos 1 de cada 2 videos). Mira en el panel el `cta` de los últimos temas producidos y usa el que toque:
+- `asesoria` (el principal: es lo que se vende) — voz: "¿Lo armamos para tu negocio? *Escríbenos*." · `pregunta`: "Escríbenos por WhatsApp"
+- `comentar` — voz: una pregunta sobre su caso, ej. "¿Cuánto fías al mes? *Coméntalo*." · `pregunta`: esa pregunta corta
+- `calculadora` — solo si el tema es de stock: "Calcula tu stock gratis en *OperaMejor.pe*." · `pregunta`: "OperaMejor.pe"
 
 Anota el llamado usado como `cta` en el tema del panel.

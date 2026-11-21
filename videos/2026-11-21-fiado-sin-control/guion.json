@@ -1,12 +1,12 @@
 [
- {"label":"","title":[""],"tipo":"impacto","datos":{"cifra":"S/ 300","sub":"de tu plata, fiada a vecinos"},
-  "chunks":["Tienes *trescientos soles* en la calle.","Es tu fiado."]},
- {"label":"// 01 · la cuenta","title":["15 VECINOS","*TE DEBEN*"],"n":1,"tipo":"formula",
-  "datos":{"terminos":[["15","vecinos"],"×",["20","soles"]],"resultado":["300","te deben"]},
-  "chunks":["Quince vecinos te deben veinte soles cada uno.","Y con esa plata no puedes *reponer*."]},
- {"label":"// 02 · qué hacer","title":["3 REGLAS","*DEL FIADO*"],"n":2,"tipo":"pasos",
-  "datos":{"pasos":["Anota fecha, nombre y monto","Máximo S/ 50 por vecino","Cobra cada sábado"]},"sello":{"texto":"SIN PAGO, SIN FIADO","tam":60,"x":330},
-  "chunks":["Uno: anota fecha, nombre y monto.","Dos: máximo *cincuenta soles* por vecino.","Tres: cobra cada *sábado*.","Si no paga, no hay más *fiado*."]},
- {"label":"// opera mejor","title":["OPERA","*MEJOR*"],"tipo":"cierre","datos":{"pregunta":"¿Cuánto te deben?"},
-  "chunks":["¿Cuánto te deben? *Coméntalo*."]}
+ {"label":"","title":[""],"tipo":"impacto","datos":{"cifra":"10%","sub":"el tope de tu fiado"},
+  "chunks":["Tu fiado nunca debe pasar el *diez por ciento* de lo que vendes.","Así el fiado te trae clientes fieles, sin dejarte sin caja."]},
+ {"label":"// 01 · el sistema","title":["FIADO","*INTELIGENTE*"],"n":1,"tipo":"pasos",
+  "datos":{"pasos":["Solo a quien compra +S/ 30 a la semana","Tope: lo que compra en una semana","Cobra cada sábado"]},
+  "chunks":["Uno: fía solo a quien te compra más de *treinta soles* a la semana.","Dos: como máximo, lo que compra en *una semana*.","Tres: cobras cada *sábado*."]},
+ {"label":"// 02 · tu meta","title":["MIDE TU","*TOPE*"],"n":2,"tipo":"formula",
+  "datos":{"terminos":[["6000","vendes al mes"],"×",["10%","tope"]],"resultado":["600","fiado máx."]},"sello":{"texto":"MÍDELO"},
+  "chunks":["Si vendes seis mil al mes, tu fiado máximo es *seiscientos*.","Si te pasas, cierras el fiado hasta *bajar*."]},
+ {"label":"// opera mejor","title":["OPERA","*MEJOR*"],"tipo":"cierre","datos":{"pregunta":"Escríbenos por WhatsApp"},
+  "chunks":["¿Lo armamos para tu negocio? *Escríbenos*."]}
 ]

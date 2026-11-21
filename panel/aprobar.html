@@ -128,8 +128,8 @@ details.blk summary::after{content:"＋";color:var(--muted)} details.blk[open] s
 </div>
 
 <script>
-const FMT = { error: "Error común", formula: "Fórmula en 30 s", mito: "Mito vs realidad" };
-const CTA = { comentar: "Comentar", calculadora: "Calculadora web", whatsapp: "WhatsApp" };
+const FMT = { sistema: "Sistema", decision: "Decisión", antes_despues: "Antes y después", error: "Error común", formula: "Fórmula", mito: "Mito vs realidad" };
+const CTA = { asesoria: "Asesoría", comentar: "Comentar", calculadora: "Calculadora web", whatsapp: "WhatsApp" };
 const META = 7, VIDEO = ["producido", "revisado", "publicado"];
 const $ = id => document.getElementById(id);
 let db = null, sample = null, all = [], ideas = [], last = null, busy = false, view = "ideas", openForm = null;
@@ -271,9 +271,9 @@ async function buscar(){
 Temas ya usados o evaluados (no los repitas, aprende de los resultados y de lo descartado):
 ${resumen}
 
-Propón 5 temas NUEVOS y variados (no solo inventario). Cada uno debe abrir con una cifra o pérdida concreta que pare el scroll en 2 segundos.
+Propón 5 temas NUEVOS y variados (no solo inventario). Deben ser ESTRATEGIAS, no consejos sueltos: cada una con objetivo de negocio, criterio (a quién/cuándo) y una meta medible, y que dé ganas de implementarla con ayuda de Opera Mejor. Cada una abre con una cifra concreta que pare el scroll en 2 segundos.
 Responde SOLO un arreglo JSON de 5 objetos con estas claves:
-"tema" (máx. 5 palabras), "angulo" (una frase con un ejemplo concreto y una cifra en soles), "formato" ("error" | "formula" | "mito", rótalos), "potencial" (entero 1–5, sé exigente), "porque" (una línea que explica el puntaje).`;
+"tema" (máx. 5 palabras), "angulo" (una frase con un ejemplo concreto y una cifra en soles), "formato" ("sistema" | "decision" | "antes_despues", rótalos), "potencial" (entero 1–5, sé exigente), "porque" (una línea que explica el puntaje).`;
   try {
     const res = await sample.json(prompt, { modelTier: "default" });
     const arr = (Array.isArray(res) ? res : res?.temas || []).filter(x => x && x.tema && x.angulo).slice(0, 5);
@@ -283,7 +283,7 @@ Responde SOLO un arreglo JSON de 5 objetos con estas claves:
       const x = arr[k]; let id = slug(x.tema), n = 2; while (ids.has(id)) id = slug(x.tema) + "-" + n++; ids.add(id);
       const pot = Math.max(1, Math.min(5, Math.round(Number(x.potencial) || 3)));
       await db.doc("temas/" + id).set({ tema: String(x.tema).slice(0, 60), angulo: String(x.angulo).slice(0, 220),
-        formato: ["error", "formula", "mito"].includes(x.formato) ? x.formato : "error", potencial: pot,
+        formato: ["sistema", "decision", "antes_despues"].includes(x.formato) ? x.formato : "sistema", potencial: pot,
         porque: String(x.porque || "").slice(0, 160), fuente: "sugerido por Claude desde el panel",
         estado: "idea", creado: new Date(now + k).toISOString() });
     }

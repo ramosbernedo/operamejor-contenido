@@ -1,26 +1,27 @@
 ## TikTok
-Tienes S/ 300 en la calle… es tu fiado 😬
-3 reglas: 1) anota fecha, nombre y monto 2) máximo S/ 50 por vecino 3) cobra cada sábado. Si no paga, no hay más fiado. ¿Cuánto te deben a ti? Coméntalo 👇
+Tu fiado nunca debe pasar el 10% de lo que vendes 📊
+Fiado inteligente: 1) solo a quien compra +S/ 30 a la semana 2) tope = lo que compra en una semana 3) cobra cada sábado. Vendes S/ 6,000 al mes → fiado máximo S/ 600. ¿Lo armamos para tu negocio? Escríbenos por WhatsApp, link en la bio.
 #bodegasperu #emprendedoresperu #negociosperu #pymesperu
 
 ## Instagram (Reels)
-Tienes S/ 300 en la calle: es tu fiado.
-15 vecinos × S/ 20 = S/ 300 que no puedes usar para reponer mercadería.
-Las 3 reglas del fiado:
-1) Anota fecha, nombre y monto (cuaderno o WhatsApp).
-2) Máximo S/ 50 por vecino.
-3) Cobra cada sábado. Si no paga, no hay más fiado.
-¿Cuánto te deben a ti? Coméntalo 👇
+El fiado no es el problema: fiar sin estrategia, sí.
+Bien usado, el fiado te trae clientes fieles. Mal usado, te deja sin caja.
+El sistema del fiado inteligente:
+1) Fía solo a quien te compra más de S/ 30 a la semana.
+2) Tope: lo que ese cliente compra en una semana.
+3) Cobra cada sábado.
+Tu meta: fiado total ≤ 10% de tus ventas del mes (vendes S/ 6,000 → máximo S/ 600). Si te pasas, cierras el fiado hasta bajar.
+¿Lo armamos para tu negocio? Escríbenos por WhatsApp, link en la bio.
 #bodegasperu #emprendedoresperu #negociosperu #minimarket #pymesperu #fiado
 
 ## LinkedIn
-El "fiado" inmoviliza capital de trabajo en muchas bodegas: 15 clientes con S/ 20 de deuda son S/ 300 que no se pueden usar para reponer.
-Tres reglas simples lo controlan: registro de cada fiado, límite por cliente (ej. S/ 50) y cobro semanal fijo, sin nuevo crédito si no hay pago.
-¿Cómo lo manejan en sus negocios?
+El crédito informal ("fiado") puede ser una herramienta de fidelización o un drenaje de caja. La diferencia es tener una política.
+Una política simple para bodegas: crédito solo a clientes recurrentes (más de S/ 30 semanales), límite igual a una semana de compras, cobro semanal fijo y un tope global del 10% de las ventas mensuales como indicador de control.
+En Opera Mejor ayudamos a negocios a implementar este tipo de sistemas.
 #Pymes #Finanzas #GestiónDeNegocios
 
 ## Portada
-S/ 300 en la calle
+Fiado: máximo 10%
 
 ## Hora sugerida
 TikTok e Instagram: 7 pm (o 12:30 pm). LinkedIn: 8 am, de martes a jueves.
