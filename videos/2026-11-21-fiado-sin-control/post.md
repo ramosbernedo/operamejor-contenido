@@ -1,6 +1,6 @@
 ## TikTok
 Tu fiado nunca debe pasar tu ganancia de una semana 📊
-Si fías más, prestas la plata del proveedor. Ejemplo: vendes S/ 1,500 a la semana y ganas 15% → tu tope es S/ 225. Fía solo a clientes fijos, anota y suma cada noche y cobra cada sábado. ¿Lo armamos para tu negocio? Escríbenos por WhatsApp, link en la bio.
+Cobras cada sábado: lo que pase de tu ganancia semanal sale de la plata del proveedor. Ejemplo: vendes S/ 1,500 a la semana y ganas 15% → tu tope es S/ 225. Fía solo a clientes fijos, anota y suma cada noche y cobra cada sábado. ¿Lo armamos para tu negocio? Escríbenos por WhatsApp, link en la bio.
 #bodegasperu #emprendedoresperu #negociosperu #pymesperu
 
 ## Instagram (Reels)
